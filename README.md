@@ -2,10 +2,10 @@
 
 ## Cara Install
 ### 1. Clone project
-`code git clone https://github.com/Qorthony/Sistem-Informasi-Keuangan.git `
+` git clone https://github.com/Qorthony/Sistem-Informasi-Keuangan.git `
 ### 2. Composer Install
 - buka terminal/cli pada direktori project
-- kemudian ketik perintah : `code` composer install `code`
+- kemudian ketik perintah : ` composer install `
 ### 3. Buat database
 - buka phpmyadmin
 - buat database baru
@@ -19,8 +19,8 @@
 - setting nilai database, username, dan password sesuai yang ada di perangkatmu. jika tidak menggunakan password cukup kosongi bagian password
 ### 5. Migrate Database
 - buka terminal/cli pada direktori project
-- ketik perintah : `code` php spark migrate `code`
+- ketik perintah : ` php spark migrate `
 ### 6. Jalankan Program
 - buka terminal/cli pada direktori project
-- ketik perintah : `code` php spark serve `code`
+- ketik perintah : ` php spark serve `
 - buka browser, ketik localhost:8080
