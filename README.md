@@ -2,7 +2,7 @@
 
 ## Cara Install
 1. Clone project
-`code` git clone https://github.com/Qorthony/Sistem-Informasi-Keuangan.git `code`
+`code git clone https://github.com/Qorthony/Sistem-Informasi-Keuangan.git `
 2. Composer Install
 - buka terminal/cli pada direktori project
 - kemudian ketik perintah : `code` composer install `code`
