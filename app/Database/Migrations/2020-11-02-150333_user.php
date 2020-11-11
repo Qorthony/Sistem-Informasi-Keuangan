@@ -29,9 +29,17 @@ class User extends Migration
 				'type'			 => 'VARCHAR',
 				'constraint'	 => '20'
 			],
+			'created_at' => [
+				'type'			 => 'DATETIME',
+				'null'			 => true,
+			],
+			'updated_at' => [
+				'type'			 => 'DATETIME',
+				'null'			 => true
+			]
 		]);
 		$this->forge->addKey('nip', true);
-		$this->forge->createTable('user');
+		$this->forge->createTable('users');
 	}
 
 	//--------------------------------------------------------------------

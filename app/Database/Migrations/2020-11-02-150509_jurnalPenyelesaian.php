@@ -32,6 +32,14 @@ class JurnalPenyelesaian extends Migration
 			'nip' => [
 				'type'			 => 'VARCHAR',
 				'constraint'	 => '20'
+			],
+			'created_at' => [
+				'type'			 => 'DATETIME',
+				'null'			 => true,
+			],
+			'updated_at' => [
+				'type'			 => 'DATETIME',
+				'null'			 => true
 			]
 		]);
 		$this->forge->addKey('id_penyesuaian', true);
