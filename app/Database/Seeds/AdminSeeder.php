@@ -11,7 +11,7 @@ class AdminSeeder extends \CodeIgniter\Database\Seeder
                         'username'      => 'Admin',
                         'email'         => 'darth@theempire.com',
                         'password'      => password_hash('ayohitung123', PASSWORD_DEFAULT),
-                        'jenis_user'    => 1,
+                        'jenis_user'    => "1",
                         'created_at'    => Time::now(),
                         'updated_at'    => Time::now()
                 ];
