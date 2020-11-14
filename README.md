@@ -19,7 +19,8 @@
 - setting nilai database, username, dan password sesuai yang ada di perangkatmu. jika tidak menggunakan password cukup kosongi bagian password
 ### 5. Migrate Database
 - buka terminal/cli pada direktori project
-- ketik perintah : ` php spark migrate `
+- ketik perintah : ` php spark migrate` 
+- ketik perintah : ` php spark db:seed AdminSeeder`
 ### 6. Jalankan Program
 - buka terminal/cli pada direktori project
 - ketik perintah : ` php spark serve `
