@@ -42,6 +42,9 @@ $routes->get('/user','User::index',["filter"=>"auth"]);
 $routes->post('/user/add','User::add',["filter"=>"auth"]);
 $routes->get('/user/del/(:num)','User::delete/$1',["filter"=>"auth"]);
 $routes->post('/user/edit/(:num)','User::edit/$1',["filter"=>"auth"]);
+$routes->get('/profile','User::profile',["filter"=>"auth"]);
+$routes->post('/profile/update','User::updateProfile',["filter"=>"auth"]);
+$routes->post('/profile/changePass','User::changePassword',["filter"=>"auth"]);
 
 /**
  * --------------------------------------------------------------------
