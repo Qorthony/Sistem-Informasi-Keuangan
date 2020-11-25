@@ -45,6 +45,7 @@ $routes->post('/user/edit/(:num)','User::edit/$1',["filter"=>"auth"]);
 $routes->get('/profile','User::profile',["filter"=>"auth"]);
 $routes->post('/profile/update','User::updateProfile',["filter"=>"auth"]);
 $routes->post('/profile/changePass','User::changePassword',["filter"=>"auth"]);
+$routes->get('/laporan','Laporan::index',["filter"=>"auth"]);
 
 /**
  * --------------------------------------------------------------------

@@ -1,5 +1,7 @@
 <?= $this->extend('layout/app_layout.php') ?>
 
+
+
 <!-- Menu Sidebar -->
 <?= $this->section('sidebar-menu') ?>
 <li class="menu-item-has-children active">
@@ -8,11 +10,16 @@
 <li class="menu-item-has-children">
     <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
 </li>
+<li class="menu-item-has-children">
+    <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
+</li>
 <?= $this->endSection('sidebar-menu') ?>
-
-<?= $this->section('content') ?>
 <!-- End Menu Sidebar -->
 
+
+
+
+<!-- Content -->
 <?= $this->section('content') ?>
 <h1 class="content-title">Dashboard</h1>
 <div class="row pt-5">
