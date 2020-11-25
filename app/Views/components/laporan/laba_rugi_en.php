@@ -20,7 +20,7 @@
                     <tbody>
                         <tr>
                             <td>Pendaptan Jasa</td>
-                            <td class="text-right">Rp. 25.500.000</td>
+                            <td class="text-right">$ 25.500.000</td>
                         </tr>
                         <tr class="font-weight-bold">
                             <td>Total Revenue</td>
