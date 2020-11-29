@@ -24,7 +24,7 @@ class JUSeeder extends \CodeIgniter\Database\Seeder
                 'no_transaksi'          => ''.strtotime(Time::now()).'02',
                 'tgl_transaksi'         => '2020-9-15',
                 'keterangan_transaksi'  => 'Beli Peralatan',
-                'no_akun'               => '122',
+                'no_akun'               => '121',
                 'debit'                 => 15000000,
                 'kredit'                => 0,
                 'nip'                   => '11180930000095',

@@ -27,11 +27,11 @@
     <link rel="stylesheet" href="/css/app.css">
     <script src="https://unpkg.com/feather-icons"></script>
     <style>
-    .content{
-        background-image: url('/img/background/bg-ungu.svg');
-        background-repeat: no-repeat;
-        background-size: 100%;
-    }
+        .content {
+            background-image: url('/img/background/bg-ungu.svg');
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
     </style>
 </head>
 
@@ -53,7 +53,9 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><h2>SI Keuangan</h2></a>
+                    <a class="navbar-brand" href="./">
+                        <h2>SI Keuangan</h2>
+                    </a>
                     <a class="navbar-brand hidden" href="./"><img src="/ElaAdmin/images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
