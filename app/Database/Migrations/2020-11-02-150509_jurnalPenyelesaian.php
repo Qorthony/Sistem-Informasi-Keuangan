@@ -1,4 +1,6 @@
-<?php namespace App\Database\Migrations;
+<?php
+
+namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
@@ -15,13 +17,13 @@ class JurnalPenyelesaian extends Migration
 				'type'			 => 'DATE',
 
 			],
+			'keterangan_penyesuaian' => [
+				'type'			 => 'VARCHAR',
+				'constraint'	 => '255',
+			],
 			'no_akun' => [
 				'type'			 => 'VARCHAR',
 				'constraint'	 => '20'
-			],
-			'keterangan' => [
-				'type'			 => 'VARCHAR',
-				'constraint'	 => '255',
 			],
 			'debit' => [
 				'type'			 => 'INT'
