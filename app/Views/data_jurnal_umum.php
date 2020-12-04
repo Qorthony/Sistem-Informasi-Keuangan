@@ -4,15 +4,15 @@
 <!-- Sidebar -->
 <?= $this->section('sidebar-menu') ?>
 <li class="menu-item-has-children">
-    <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+    <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
 </li>
-<li class="menu-item-has-children active">
+<li class="menu-item-has-children">
     <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
 </li>
 <li class="menu-item-has-children">
     <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
 </li>
-<li class="menu-item-has-children">
+<li class="menu-item-has-children active">
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
 <li class="menu-item-has-children">
@@ -34,7 +34,7 @@
     <?= $this->include("components/alert_success.php") ?>
 <?php } ?>
 
-<h1 class="content-title">Kelola Data User</h1>
+<h1 class="content-title">Kelola Data Jurnal</h1>
 <div class="row pt-5">
     <div class="col-12">
         <div class="card">
@@ -45,83 +45,62 @@
                             <input type="text" class="form-control">
                         </div>
                         <div class="col text-right">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahUser"><i data-feather="plus-circle"></i> Tambah Data</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahJurnalUmum"><i data-feather="plus-circle"></i> Tambah Data</button>
                         </div>
-                        <?= $this->include("components/user/modal_tambah_user.php") ?>
+                        <?= $this->include("components/jurnal_umum/modal_tambah_jurnal_umum.php") ?>
                     </div>
                     <thead>
                         <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">NIP</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Email</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">No Akun</th>
                             <th scope="col">Keterangan</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Debet</th>
+                            <th scope="col">Kredit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data_users as $key => $x) : ?>
+                        <?php foreach ($data_jurnal_umum as $key => $x) : ?>
                             <tr>
-                                <th scope="row"><?= $key + 1 ?></th>
-                                <td> <?= $x["nip"] ?> </td>
-                                <td><?= $x["username"] ?></td>
-                                <td><?= $x["email"] ?></td>
-                                <td><?= $x["jenis_user"] ?></td>
+                                <!-- <th scope="row"><?= $key + 1 ?></th> -->
+                                <td><?= $x["tgl_transaksi"] ?> </td>
+                                <td><?= $x["no_akun"] ?></td>
+                                <td><?= $x["debit"] ?></td>
+                                <td><?= $x["kredit"] ?></td>
+                                <td><?= $x["keterangan_transaksi"] ?></td>
                                 <td>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#editUser<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#hapusUser<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#editJurnalUmum<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#hapusJurnalUmum<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
                                     <!-- Modal Edit User-->
-                                    <div class="modal fade" id="editUser<?= $key ?>" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
+                                    <div class="modal fade" id="editJurnalUmum<?= $key ?>" tabindex="-1" aria-labelledby="editJurnalUmumLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header d-flex">
-                                                    <h5 class="modal-title" id="editUserLabel">Edit Data</h5>
+                                                    <h5 class="modal-title" id="editJurnalUmumLabel">Edit Data</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="/user/edit/<?= $x["nip"] ?>" method="POST">
+                                                <form action="/jurnal_umum/edit/<?= $x["no_transaksi"] ?>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
-                                                            <label for="nip">NIP</label>
-                                                            <input type="text" name="nip" class="form-control" id="nip" value="<?= $x["nip"] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="nama">Nama</label>
-                                                            <input type="text" name="nama" class="form-control" id="nama" value="<?= $x["username"] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="email">Email</label>
-                                                            <input type="text" name="email" class="form-control" id="email" value="<?= $x["email"] ?>">
+                                                            <label for="tanggal">Tanggal</label>
+                                                            <input type="date" name="tanggal" class="form-control" id="tgl_transaksi" value="<?= $x["tgl_transaksi"] ?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="keterangan">Keterangan</label>
-                                                            <select name="keterangan" class="form-control" id="keterangan">
-                                                                <?php switch ($x["jenis_user"]) {
-                                                                    case 1: ?>
-                                                                        <option value="1" selected>Admin</option>
-                                                                        <option value="2">Accounting</option>
-                                                                        <option value="3">Board</option>
-                                                                    <?php
-                                                                        break;
-                                                                    case 2: ?>
-                                                                        <option value="1">Admin</option>
-                                                                        <option value="2" selected>Accounting</option>
-                                                                        <option value="3">Board</option>
-                                                                    <?php
-                                                                        break;
-                                                                    case 3: ?>
-                                                                        <option value="1">Admin</option>
-                                                                        <option value="2">Accounting</option>
-                                                                        <option value="3" selected>Board</option>
-                                                                <?php
-                                                                        break;
-
-                                                                    default:
-                                                                        # code...
-                                                                        break;
-                                                                } ?>
-
+                                                            <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan_transaksi"] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="no_akun">No Akun</label>
+                                                            <input type="text" name="no_akun" class="form-control" id="no_akun" value="<?= $x["no_akun"] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="debit">Debet</label>
+                                                            <input type="number" name="debit" class="form-control" id="debit" value="<?= $x["debit"] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="kredit">Kredit</label>
+                                                            <input type="number" name="kredit" class="form-control" id="kredit" value="<?= $x["kredit"] ?>">
                                                             </select>
                                                         </div>
 
@@ -136,11 +115,11 @@
                                     </div>
                                     <!-- End Modal Edit User -->
                                     <!-- Modal Hapus User -->
-                                    <div class="modal fade" id="hapusUser<?= $key ?>" tabindex="-1" aria-labelledby="hapusUserLabel" aria-hidden="true">
+                                    <div class="modal fade" id="hapusJurnalUmum<?= $key ?>" tabindex="-1" aria-labelledby="hapusJurnalUmumLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header d-flex" style="background-color: rgba(46,94,153,0.65);">
-                                                    <h5 class="modal-title" id="hapusUserLabel">Konfirmasi</h5>
+                                                    <h5 class="modal-title" id="hapusJurnalUmumLabel">Konfirmasi</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -149,7 +128,7 @@
                                                     <p class="text-body">Apakah anda yakin menghapus data ini?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="/user/del/<?= $x["nip"] ?>" class="btn btn-danger">Hapus</a>
+                                                    <a href="/akun/del/<?= $x["no_transaksi"] ?>" class="btn btn-danger">Hapus</a>
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
                                                 </div>
                                             </div>

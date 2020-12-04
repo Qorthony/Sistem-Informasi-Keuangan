@@ -5,10 +5,16 @@
 <!-- Sidebar -->
 <?= $this->section('sidebar-menu') ?>
 <li class="menu-item-has-children">
-    <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+    <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
 </li>
 <li class="menu-item-has-children">
     <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
+</li>
+<li class="menu-item-has-children">
+    <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
+</li>
+<li class="menu-item-has-children">
+    <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
 <li class="menu-item-has-children">
     <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>

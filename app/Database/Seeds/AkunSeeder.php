@@ -46,14 +46,14 @@ class AkunSeeder extends \CodeIgniter\Database\Seeder
             ],
             [
                 'no_akun'       => '211',
-                'nama_akun'     => 'utang usaha',
+                'nama_akun'     => 'Utang Usaha',
                 'keterangan'    => 'tempat mencatat hutang untuk keperluan usaha',
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
             ],
             [
                 'no_akun'       => '311',
-                'nama_akun'     => 'modal',
+                'nama_akun'     => 'Modal',
                 'keterangan'    => 'tempat mencatat modal',
                 'created_at'    => Time::now(),
                 'updated_at'    => Time::now()
