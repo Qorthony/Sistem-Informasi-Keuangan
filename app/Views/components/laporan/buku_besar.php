@@ -1,14 +1,16 @@
 <div class="card">
     <div class="card card-body">
+    <?php if(!empty($data)){ ?>
         <h5>Laporan Buku Besar</h5>
         <form>
             <div class="row pt-4">
                 <div class="col-12 col-md-4">
                     <select name="akun" class="form-control" id="akun">
-                        <option value="semua">semua</option>
-                        <option value="kas">kas</option>
-                        <option value="piutang">piutang</option>
-                        <option value="perlengkapan">perlengkapan</option>
+                        <option value="semua">Semua</option>
+                        <?php foreach ($data as $akun) : ?>
+                            <option value="<?= str_replace(" ", "-", $akun['nama_akun']) ?>"><?= $akun['nama_akun'] ?></option>
+                        <?php endforeach; ?>
+
                     </select>
                 </div>
             </div>
@@ -19,91 +21,96 @@
         <div id="laporan-view" class="pr-3 pl-3">
             <header class="text-center">
                 <h1>Laporan Buku Besar</h1>
-                <p>Periode 01-31 oktober</p>
+                <p>Periode <?= date('j/m/Y', strtotime($filter['start_date'])) . ' - ' . date('t/m/Y', strtotime($filter['end_date']))   ?></p>
             </header>
             <div class="list-akun">
-                <div class="item-akun mb-5">
-                    <div class="row">
-                        <div class="col text-left">Nama Akun : KAS</div>
-                        <div class="col text-right">No Akun : 111</div>
-                    </div>
-                    <table class="table table-striped">
-                        <thead class="text-center">
-                            <tr>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">TANGGAL</th>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">KETERANGAN</th>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">DEBET</th>
-                                <th scope="col" rowspan="2" style="vertical-align: middle;">KREDIT</th>
-                                <th scope="col" colspan="2" style="border-bottom:none;">SALDO</th>
-                            </tr>
-                            <tr>
-                                <td scope="col">DEBET</td>
-                                <td scope="col">KREDIT</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">01 Oktober 2020</th>
-                                <td class="text-left">Membeli perlengkapan</td>
-                                <td>-</td>
-                                <td>Rp. 3.600.000</td>
-                                <td>Rp. 3.600.000</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">01 Oktober 2020</th>
-                                <td class="text-right">Pembayaran Utang</td>
-                                <td>Rp. 3.600.000</td>
-                                <td>-</td>
-                                <td>Rp. 3.600.000</td>
-                                <td>-</td>
-                            </tr>
-                            <tr class="font-weight-bold">
-                                <td colspan="4" class="text-center">JUMLAH</td>
-                                <td>Rp. 0</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <?php foreach ($data as $akun) : ?>
+                    <div class="item-akun mb-5" id="<?= str_replace(" ", "-", $akun['nama_akun']) ?>" style="display: none;">
+                        <div class="row">
+                            <div class="col text-left">Akun : <?= $akun['nama_akun'] ?> </div>
+                            <div class="col text-right">No Akun : <?= $akun['no_akun'] ?> </div>
+                        </div>
+                        <table class="table table-striped">
+                            <thead class="text-center">
+                                <tr>
+                                    <th scope="col" rowspan="2" style="vertical-align: middle;">TANGGAL</th>
+                                    <th scope="col" rowspan="2" style="vertical-align: middle;">KETERANGAN</th>
+                                    <th scope="col" rowspan="2" style="vertical-align: middle;">DEBET</th>
+                                    <th scope="col" rowspan="2" style="vertical-align: middle;">KREDIT</th>
+                                    <th scope="col" colspan="2" style="border-bottom:none;">SALDO</th>
+                                </tr>
+                                <tr>
+                                    <td scope="col">DEBET</td>
+                                    <td scope="col">KREDIT</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($akun['transaksi'] as $item) : ?>
+                                    <tr>
+                                        <th scope="row"> <?= tanggal_in_bahasa($item['tgl_transaksi']) ?></th>
+                                        <td class="<?= ($item['debit'] == '0') ? 'text-right' : 'text-left'; ?> "> <?= $item['keterangan_transaksi'] ?> </td>
+                                        <td> Rp. <?= $item['debit'] ?> </td>
+                                        <td> Rp. <?= $item['kredit'] ?> </td>
+                                        <td> Rp. <?= $item['saldo']['debit'] ?></td>
+                                        <td>Rp. <?= $item['saldo']['kredit'] ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
 
-                <div class="item-akun mb-5">
-                    <div class="row">
-                        <div class="col text-left">Nama Akun : PIUTANG</div>
-                        <div class="col text-right">No Akun : 112</div>
+                                <tr class="font-weight-bold">
+                                    <td colspan="4" class="text-center">JUMLAH</td>
+                                    <td>Rp. <?= $akun['total_saldo'] ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">TANGGAL</th>
-                                <th scope="col">KETERANGAN</th>
-                                <th scope="col">DEBET</th>
-                                <th scope="col">KREDIT</th>
-                                <th scope="col">SALDO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">01 Oktober 2020</th>
-                                <td class="text-left">Membeli perlengkapan</td>
-                                <td>-</td>
-                                <td>Rp. 3.600.000</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">01 Oktober 2020</th>
-                                <td class="text-right">Pembayaran Utang</td>
-                                <td>Rp. 3.600.000</td>
-                                <td>-</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr class="font-weight-bold">
-                                <td colspan="4" class="text-center">JUMLAH</td>
-                                <td>Rp. 0</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
+        <?php }else{ ?>
+            <hr>
+            <h1 class="text-center text-secondary">Maaf, Laporan belum tersedia!</h1>
+            <hr>
+        <?php } ?>
     </div>
 </div>
+
+<script>
+    const akunSelector = document.getElementById("akun");
+    let opsi_akun = [
+        <?php foreach ($data as $akun) : ?>
+            <?= "'" . str_replace(" ", "-", $akun['nama_akun']) . "'," ?>
+        <?php endforeach; ?>
+    ]
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        console.log("DOM fully loaded");
+        showAllAkun()
+    })
+
+    akunSelector.addEventListener("change", () => {
+        if (opsi_akun.includes(akunSelector.value, 0)) {
+            console.log(akunSelector.value);
+            showOneAkun(akunSelector.value)
+        }else{
+            showAllAkun()
+        }
+    })
+
+
+    const hideAkun =()=>{
+        opsi_akun.forEach((opsi)=>{
+            document.getElementById(opsi).style.display="none";
+        })
+    }
+
+    const showOneAkun=(akun)=>{
+        hideAkun()
+        document.getElementById(akun).style.display="block";
+    }
+
+    const showAllAkun=()=>{
+        opsi_akun.forEach((opsi)=>{
+            document.getElementById(opsi).style.display="block";
+        })
+    } 
+</script>
