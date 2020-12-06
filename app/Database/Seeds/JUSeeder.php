@@ -129,6 +129,28 @@ class JUSeeder extends \CodeIgniter\Database\Seeder
                 'nip'                   => '11180930000095',
                 'created_at'            => Time::now(),
                 'updated_at'            => Time::now()
+            ],
+            [
+                'no_transaksi'          => ''.strtotime(Time::now()).'12',
+                'tgl_transaksi'         => '2020-11-3',
+                'keterangan_transaksi'  => 'Piutang',
+                'no_akun'               => '112',
+                'debit'                 => 7500000,
+                'kredit'                => 0,
+                'nip'                   => '11180930000095',
+                'created_at'            => Time::now(),
+                'updated_at'            => Time::now()
+            ],
+            [
+                'no_transaksi'          => ''.strtotime(Time::now()).'13',
+                'tgl_transaksi'         => '2020-11-3',
+                'keterangan_transaksi'  => 'Pendapatan',
+                'no_akun'               => '411',
+                'debit'                 => 0,
+                'kredit'                => 7500000,
+                'nip'                   => '11180930000095',
+                'created_at'            => Time::now(),
+                'updated_at'            => Time::now()
             ]
         ];
 

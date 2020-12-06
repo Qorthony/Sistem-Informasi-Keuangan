@@ -43,7 +43,7 @@ class Laporan extends BaseController
 				$data = $this->getNS($filter['start_date'], $filter['end_date']);
 				break;
 			case 'lr':
-				# code...
+				$data = $this->getLR($filter['start_date'], $filter['end_date']);
 				break;
 
 			default:
@@ -56,21 +56,40 @@ class Laporan extends BaseController
 		]);
 	}
 
+	// Mengambil data laba rugi
+	private function getLR($mulai, $selesai)
+	{
+		$result = getDataJurnal($mulai, $selesai);
+		if (!empty($result)) {
+			$result = $this->restructureLR($result);
+		}
+		// dd($result);
+
+		return $result;
+	}
+
+	private function restructureLR($data)
+	{
+		$pendapatan = collectDataLR($data, "pendapatan");
+
+		$beban = collectDataLR($data, "beban");
+
+		$laba_bersih = $pendapatan['total_items']['kredit']-$beban['total_items']['debit'];
+
+		$labaRugi = [
+			"pendapatan"=>$pendapatan,
+			"beban"=>$beban,
+			"laba_bersih"=>$laba_bersih
+		];
+
+		// dd($labaRugi);
+		return $labaRugi;
+	}
+
 	// mengambil data Neraca Saldo
 	private function getNS($mulai, $selesai)
 	{
-		$sql = "SELECT akun.nama_akun,all_jurnal.* FROM 
-				(SELECT * FROM jurnal_umum 
-		 			UNION ALL
-				SELECT * FROM jurnal_penyesuaian
-				ORDER BY tgl_transaksi DESC) AS all_jurnal
-				INNER JOIN akun ON akun.no_akun=all_jurnal.no_akun
-				WHERE all_jurnal.tgl_transaksi BETWEEN :tgl_mulai: AND :tgl_selesai:";
-		$result = $this->db->query($sql, [
-			'tgl_mulai' => date('Y-m-j', strtotime($mulai)),
-			'tgl_selesai' => date('Y-m-t', strtotime($selesai))
-		])->getResult('array');
-
+		$result = getDataJurnal($mulai, $selesai);
 		// dd($result);
 		if (!empty($result)) {
 			$result = $this->restructureNS($result);
@@ -86,13 +105,10 @@ class Laporan extends BaseController
 		$jml_debit = 0;
 		$jml_kredit = 0;
 
-		$duplicate = 0;
-
-		foreach ($data as $key => $row) {
+		foreach ($data as $row) {
 			$akun = [];
 			$saldo = [];
 			if (akunExist($akuns, $row['no_akun'])) {
-				$duplicate += 1;
 				continue;
 			}
 			foreach ($data as $item) {
@@ -125,7 +141,7 @@ class Laporan extends BaseController
 			"jumlah_kredit" => $jml_kredit
 		];
 
-		// dd($neraca,$duplicate);
+		// dd($neraca);
 
 		return $neraca;
 	}
@@ -133,18 +149,7 @@ class Laporan extends BaseController
 	// Mengambil data Buku besar
 	private function getBB($mulai, $selesai)
 	{
-		$sql = "SELECT akun.nama_akun,all_jurnal.* FROM 
-				(SELECT * FROM jurnal_umum 
-		 			UNION ALL
-				SELECT * FROM jurnal_penyesuaian
-				ORDER BY tgl_transaksi DESC) AS all_jurnal
-				INNER JOIN akun ON akun.no_akun=all_jurnal.no_akun
-				WHERE all_jurnal.tgl_transaksi BETWEEN :tgl_mulai: AND :tgl_selesai:";
-
-		$result = $this->db->query($sql, [
-			'tgl_mulai' => date('Y-m-j', strtotime($mulai)),
-			'tgl_selesai' => date('Y-m-t', strtotime($selesai))
-		])->getResult('array');
+		$result = getDataJurnal($mulai, $selesai);
 		// dd($result);
 		if (!empty($result)) {
 			$result = $this->restructureBB($result);
