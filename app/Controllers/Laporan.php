@@ -12,7 +12,8 @@ class Laporan extends BaseController
 {
 	function __construct()
 	{
-		helper('tanggalindo');		
+		helper(['tanggalindo', 'laporan']);
+		$this->db = db_connect();
 	}
 
 	public function index()
@@ -39,7 +40,7 @@ class Laporan extends BaseController
 				$data = $this->getBB($filter['start_date'], $filter['end_date']);
 				break;
 			case 'ns':
-				# code...
+				$data = $this->getNS($filter['start_date'], $filter['end_date']);
 				break;
 			case 'lr':
 				# code...
@@ -55,10 +56,83 @@ class Laporan extends BaseController
 		]);
 	}
 
-	// Mengambil data Buku besar
-	private function getBB($mulai, $selesai, $akun = "")
+	// mengambil data Neraca Saldo
+	private function getNS($mulai, $selesai)
 	{
-		$db = db_connect();
+		$sql = "SELECT akun.nama_akun,all_jurnal.* FROM 
+				(SELECT * FROM jurnal_umum 
+		 			UNION ALL
+				SELECT * FROM jurnal_penyesuaian
+				ORDER BY tgl_transaksi DESC) AS all_jurnal
+				INNER JOIN akun ON akun.no_akun=all_jurnal.no_akun
+				WHERE all_jurnal.tgl_transaksi BETWEEN :tgl_mulai: AND :tgl_selesai:";
+		$result = $this->db->query($sql, [
+			'tgl_mulai' => date('Y-m-j', strtotime($mulai)),
+			'tgl_selesai' => date('Y-m-t', strtotime($selesai))
+		])->getResult('array');
+
+		// dd($result);
+		if (!empty($result)) {
+			$result = $this->restructureNS($result);
+		}
+
+		return $result;
+	}
+
+	private function restructureNS($data)
+	{
+
+		$akuns = [];
+		$jml_debit = 0;
+		$jml_kredit = 0;
+
+		$duplicate = 0;
+
+		foreach ($data as $key => $row) {
+			$akun = [];
+			$saldo = [];
+			if (akunExist($akuns, $row['no_akun'])) {
+				$duplicate += 1;
+				continue;
+			}
+			foreach ($data as $item) {
+				if ($item['no_akun'] == $row['no_akun']) {
+					$saldo = hitungSaldo(
+						$item['no_akun'],
+						$item['debit'],
+						$item['kredit'],
+						!empty($saldo) ? $saldo['debit'] : 0,
+						!empty($saldo) ? $saldo['kredit'] : 0
+					);
+				}
+			}
+
+			$akun = [
+				"no_akun" => $row['no_akun'],
+				"nama_akun" => $row['nama_akun'],
+				"saldo" => $saldo
+			];
+
+			array_push($akuns, $akun);
+			$jml_debit += $saldo['debit'];
+			$jml_kredit += $saldo['kredit'];
+		}
+		// dd($akuns);
+
+		$neraca = [
+			"data_akun" => $akuns,
+			"jumlah_debit" => $jml_debit,
+			"jumlah_kredit" => $jml_kredit
+		];
+
+		// dd($neraca,$duplicate);
+
+		return $neraca;
+	}
+
+	// Mengambil data Buku besar
+	private function getBB($mulai, $selesai)
+	{
 		$sql = "SELECT akun.nama_akun,all_jurnal.* FROM 
 				(SELECT * FROM jurnal_umum 
 		 			UNION ALL
@@ -67,13 +141,11 @@ class Laporan extends BaseController
 				INNER JOIN akun ON akun.no_akun=all_jurnal.no_akun
 				WHERE all_jurnal.tgl_transaksi BETWEEN :tgl_mulai: AND :tgl_selesai:";
 
-		$result = $db->query($sql, [
+		$result = $this->db->query($sql, [
 			'tgl_mulai' => date('Y-m-j', strtotime($mulai)),
 			'tgl_selesai' => date('Y-m-t', strtotime($selesai))
-		])
-			->getResult('array');
+		])->getResult('array');
 		// dd($result);
-		// dd(date('Y-m-j', strtotime($mulai)));
 		if (!empty($result)) {
 			$result = $this->restructureBB($result);
 		}
@@ -94,14 +166,8 @@ class Laporan extends BaseController
 
 		// menambahkan akun ke buku besar
 		foreach ($data as $value) {
-			$equal = 0;
-			foreach ($bukubesar as $item) {
-				if ($value['no_akun'] == $item['no_akun']) {
-					$equal += 1;
-				}
-			}
 
-			if ($equal == 0) {
+			if (!akunExist($bukubesar, $value['no_akun'])) {
 				$correctItem = [
 					"no_akun" => $value['no_akun'],
 					"nama_akun" => $value['nama_akun'],
@@ -117,14 +183,13 @@ class Laporan extends BaseController
 			foreach ($bukubesar as $key => $item) {
 				if ($row['no_akun'] == $item['no_akun']) {
 
-					
-
-					$saldo_normal = $this->hitungSaldo(
-										$row['no_akun'], 
-										$row['debit'], 
-										$row['kredit'], 
-										!empty($bukubesar[$key]['transaksi']) ?$bukubesar[$key]['transaksi'][array_key_last($bukubesar[$key]['transaksi'])]['saldo']['debit']:0 , 
-										!empty($bukubesar[$key]['transaksi']) ?$bukubesar[$key]['transaksi'][array_key_last($bukubesar[$key]['transaksi'])]['saldo']['kredit']:0);
+					$saldo_normal = hitungSaldo(
+						$row['no_akun'],
+						$row['debit'],
+						$row['kredit'],
+						!empty($bukubesar[$key]['transaksi']) ? $bukubesar[$key]['transaksi'][array_key_last($bukubesar[$key]['transaksi'])]['saldo']['debit'] : 0,
+						!empty($bukubesar[$key]['transaksi']) ? $bukubesar[$key]['transaksi'][array_key_last($bukubesar[$key]['transaksi'])]['saldo']['kredit'] : 0
+					);
 
 					$transaksi = [
 						"no_transaksi" 			=> $row['no_transaksi'],
@@ -135,7 +200,7 @@ class Laporan extends BaseController
 						"saldo"					=> $saldo_normal,
 					];
 					array_push($bukubesar[$key]['transaksi'], $transaksi);
-					$bukubesar[$key]['total_saldo']=($saldo_normal['debit']==0)?$saldo_normal['kredit']:$saldo_normal['debit'];
+					$bukubesar[$key]['total_saldo'] = ($saldo_normal['debit'] == 0) ? $saldo_normal['kredit'] : $saldo_normal['debit'];
 				}
 			}
 		}
@@ -145,30 +210,6 @@ class Laporan extends BaseController
 		return $bukubesar;
 	}
 
-	private function hitungSaldo($no_akun, $debit, $kredit, $saldo_debit, $saldo_kredit)
-	{
-		$saldo = [];
-		if (substr($no_akun, 0, 1) == 1 || substr($no_akun, 0, 1) == 5) {
-			$saldo_normal = $saldo_debit+$debit-$kredit;
-			if ($saldo_normal<0) {
-				$saldo['debit'] = 0;
-				$saldo['kredit'] = abs($saldo_normal);
-			}else {
-				$saldo['debit'] = $saldo_normal;
-				$saldo['kredit'] = 0;
-			}
-		} else {
-			$saldo_normal = $saldo_kredit+$kredit-$debit;
-			if ($saldo_normal<0) {
-				$saldo['debit'] = abs($saldo_normal);
-				$saldo['kredit'] = 0;
-			}else {
-				$saldo['debit'] = 0;
-				$saldo['kredit'] = $saldo_normal;
-			}
-		}
-		return $saldo;
-	}
 
 
 

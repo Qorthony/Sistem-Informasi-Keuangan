@@ -1,5 +1,6 @@
 <div class="card">
     <div class="card card-body">
+        <?php if(!empty($data)){ ?>
         <h5>Laporan Neraca Saldo</h5>
         <div class="pt-3">
             <button class="btn btn-success" id="download-laporan">Download</button>
@@ -7,7 +8,7 @@
         <div id="laporan-view" class="pr-3 pl-3">
             <header class="text-center">
                 <h1>Laporan Neraca Saldo</h1>
-                <p>Periode 01-31 oktober</p>
+                <p>Periode <?= date('j/m/Y', strtotime($filter['start_date'])) . ' - ' . date('t/m/Y', strtotime($filter['end_date']))   ?></p>
             </header>
             <div class="list-akun">
                 <div class="item-akun mb-5">
@@ -22,18 +23,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php for ($i=0; $i <5 ; $i++) {?> 
+                            <?php foreach ($data['data_akun'] as $key => $item) {?> 
                             <tr>
-                                <th scope="row">111</th>
-                                <td class="text-left">KAS</td>
-                                <td>Rp. 24.840.000</td>
-                                <td>-</td>
+                                <th scope="row"><?= $item['no_akun'] ?></th>
+                                <td class="text-left"> <?= $item['nama_akun'] ?> </td>
+                                <td>Rp. <?= number_format($item['saldo']['debit'])  ?> </td>
+                                <td>Rp. <?= number_format($item['saldo']['kredit']) ?></td>
                             </tr>
                             <?php } ?>
                             <tr class="font-weight-bold">
                                 <td colspan="2" class="text-center">JUMLAH</td>
-                                <td>Rp. 88.600.000</td>
-                                <td>Rp. 88.600.000</td>
+                                <td>Rp. <?= number_format($data['jumlah_debit']) ?></td>
+                                <td>Rp. <?= number_format($data['jumlah_kredit']) ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -41,5 +42,10 @@
 
             </div>
         </div>
+        <?php }else{ ?>
+            <hr>
+            <h1 class="text-center text-secondary">Maaf, Laporan belum tersedia!</h1>
+            <hr>
+        <?php } ?>
     </div>
 </div>

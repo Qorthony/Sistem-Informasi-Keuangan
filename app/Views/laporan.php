@@ -44,26 +44,26 @@
                     <div class="d-flex align-items-end pt-3">
                         <div class="form-group mr-3">
                             <label for="start">Periode Mulai</label>
-                            <input type="month" name="start" value="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" max="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" class="form-control" id="start">
+                            <input type="month" name="start" value="<?= ($filter['start_date']=="")? CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth():$filter['start_date'] ?>" max="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" class="form-control" id="start">
                         </div>
                         <div class="form-group mr-3">
                             <label for="end">Periode Selesai</label>
-                            <input type="month" name="end" value="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" max="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" class="form-control" id="end">
+                            <input type="month" name="end" value="<?= ($filter['end_date'] == "") ? CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() : $filter['end_date'] ?>" class="form-control" id="end">
                         </div>
                         <div class="form-group mr-3">
                             <label for="kategori">Kategori</label>
                             <select name="kategori" class="form-control" id="kategori">
                                 <option>...</option>
-                                <option value="bb" <?= ($laporan == "bb") ? "selected" : ""; ?>>Laporan Buku Besar</option>
-                                <option value="ns" <?= ($laporan == "ns") ? "selected" : ""; ?>>Laporan Neraca</option>
-                                <option value="lr" <?= ($laporan == "lr") ? "selected" : ""; ?>>Laporan Laba Rugi</option>
+                                <option value="bb" <?= ($filter['laporan'] == "bb") ? "selected" : ""; ?>>Laporan Buku Besar</option>
+                                <option value="ns" <?= ($filter['laporan'] == "ns") ? "selected" : ""; ?>>Laporan Neraca</option>
+                                <option value="lr" <?= ($filter['laporan'] == "lr") ? "selected" : ""; ?>>Laporan Laba Rugi</option>
                             </select>
                         </div>
                         <div class="form-group mr-3">
                             <label for="mata_uang">Mata Uang</label>
                             <select class="form-control" name="mata_uang" id="mata_uang">
-                                <option value="idr" <?= ($mata_uang == "idr") ? "selected" : ""; ?>>IDR</option>
-                                <option value="usd" <?= ($mata_uang == "usd") ? "selected" : ""; ?>>USD</option>
+                                <option value="idr" <?= ($filter['mata_uang'] == "idr") ? "selected" : ""; ?>>IDR</option>
+                                <option value="usd" <?= ($filter['mata_uang'] == "usd") ? "selected" : ""; ?>>USD</option>
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary mb-3">Tampilkan</button>
@@ -71,21 +71,21 @@
                 </form>
             </div>
         </div>
-        <?php if ($laporan == "bb" && $mata_uang == "idr") { ?>
+        <?php if ($filter['laporan'] == "bb" && $filter['mata_uang'] == "idr") { ?>
             <?= $this->include("components/laporan/buku_besar.php") ?>
-        <?php } elseif ($laporan == "bb" && $mata_uang == "usd") { ?>
+        <?php } elseif ($filter['laporan'] == "bb" && $filter['mata_uang'] == "usd") { ?>
             <?= $this->include("components/laporan/buku_besar_en.php") ?>
         <?php } ?>
 
-        <?php if ($laporan == "ns" && $mata_uang == "idr") { ?>
+        <?php if ($filter['laporan'] == "ns" && $filter['mata_uang'] == "idr") { ?>
             <?= $this->include("components/laporan/neraca_saldo.php") ?>
-        <?php } elseif ($laporan == "ns" && $mata_uang == "usd") { ?>
+        <?php } elseif ($filter['laporan'] == "ns" && $filter['mata_uang'] == "usd") { ?>
             <?= $this->include("components/laporan/neraca_saldo_en.php") ?>
         <?php } ?>
 
-        <?php if ($laporan == "lr" && $mata_uang == "idr") { ?>
+        <?php if ($filter['laporan'] == "lr" && $filter['mata_uang'] == "idr") { ?>
             <?= $this->include("components/laporan/laba_rugi.php") ?>
-        <?php } elseif ($laporan == "lr" && $mata_uang == "usd") { ?>
+        <?php } elseif ($filter['laporan'] == "lr" && $filter['mata_uang'] == "usd") { ?>
             <?= $this->include("components/laporan/laba_rugi_en.php") ?>
         <?php } ?>
 

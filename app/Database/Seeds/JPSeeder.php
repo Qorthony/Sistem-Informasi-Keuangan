@@ -23,7 +23,7 @@ class JPSeeder extends \CodeIgniter\Database\Seeder
             [
                 'id_penyesuaian'          => ''.strtotime(Time::now()).'02',
                 'tgl_penyesuaian'         => '2020-9-24',
-                'no_akun'               => '116',
+                'no_akun'               => '113',
                 'keterangan_penyesuaian'=> 'Perlengkapan terpakai',
                 'debit'                 => 0,
                 'kredit'                => 750000,
