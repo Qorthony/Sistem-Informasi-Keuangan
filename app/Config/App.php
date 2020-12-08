@@ -4,6 +4,10 @@ use CodeIgniter\Config\BaseConfig;
 
 class App extends BaseConfig
 {
+	function __construct()
+	{
+		$this->baseURL=getenv('app.baseURL')?getenv('app.baseURL'):'http://localhost:8080/';
+	}
 
 	/*
 	|--------------------------------------------------------------------------
@@ -21,7 +25,8 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://localhost:8080/';
+	public $baseURL = '';
+
 
 	/*
 	|--------------------------------------------------------------------------
