@@ -12,7 +12,7 @@ class Guest implements FilterInterface
     {
         // Jika User Sudah Login
         if (session()->get('logged_in')) {
-            return redirect()->to('/dashboard');
+            return redirect()->to('/');
         }
     }
 

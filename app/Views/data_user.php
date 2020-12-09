@@ -16,6 +16,9 @@
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
 <li class="menu-item-has-children">
+    <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
+</li>
+<li class="menu-item-has-children">
     <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
 </li>
 <?= $this->endSection('sidebar-menu') ?>
@@ -123,6 +126,10 @@
                                                                 } ?>
 
                                                             </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="password">Password</label>
+                                                            <input type="text" name="nama" class="form-control" id="password" value="<?= $x["username"] ?>">
                                                         </div>
 
                                                     </div>

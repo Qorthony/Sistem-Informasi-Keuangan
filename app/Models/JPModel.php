@@ -8,5 +8,5 @@ class JPModel extends Model
 {
     protected $table = 'jurnal_penyesuaian';
     protected $primaryKey = 'id_penyesuaian';
-    protected $allowedFields = ['id_penyesuaian', 'tgl_penyesuaian', 'keterangan_transaksi', 'no_akun', 'debit', 'kredit', 'nip', 'created_at', 'updated_at'];
+    protected $allowedFields = ['id_penyesuaian', 'tgl_penyesuaian', 'keterangan_penyesuaian', 'no_akun', 'debit', 'kredit', 'nip', 'created_at', 'updated_at'];
 }

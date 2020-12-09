@@ -21,7 +21,8 @@ class User extends BaseController
 			'nip'			=> "required|is_unique[users.nip]|numeric",
 			'email' 		=> "required|is_unique[users.email]|valid_email",
 			'nama'  		=> 'required|alpha_numeric_space|is_unique[users.username]',
-			'keterangan'	=> "required"
+			'keterangan'	=> "required",
+			'password'		=> "required"
 		])) {
 			return redirect()->to('/user')->with('errors', $this->validator->getErrors());
 		}
@@ -30,13 +31,14 @@ class User extends BaseController
 		$nama 		= $this->request->getPost('nama');
 		$email 		= $this->request->getPost('email');
 		$keterangan = $this->request->getPost('keterangan');
+		$password 	= $this->request->getPost('password');
 
 		$user = new UserModel;
 		$data = [
 			'nip' 			=> $nip,
 			'username'		=> $nama,
 			'email'			=> $email,
-			'password'		=> password_hash('punya' . $nama, PASSWORD_DEFAULT),
+			'password'		=> password_hash($password, PASSWORD_DEFAULT),
 			'jenis_user' 	=> $keterangan,
 			'created_at'    => Time::now(),
 			'updated_at'    => Time::now()

@@ -15,6 +15,9 @@
 <li class="menu-item-has-children">
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
+<li class="menu-item-has-children">
+    <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
+</li>
 <li class="menu-item-has-children active">
     <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
 </li>

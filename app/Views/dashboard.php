@@ -17,6 +17,9 @@
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
 <li class="menu-item-has-children">
+    <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
+</li>
+<li class="menu-item-has-children">
     <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
 </li>
 <?= $this->endSection('sidebar-menu') ?>
@@ -29,22 +32,113 @@
 <?= $this->section('content') ?>
 <h1 class="content-title">Dashboard</h1>
 <div class="row pt-5">
-    <div class="col-12">
+    <!-- Pendapatan Hari Ini -->
+    <div class="col-12 col-sm-6 col-lg-3">
         <div class="card">
-            <div class="card-body">
-                <h1>Ini Halaman Dashboard</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut accusamus provident, porro cum, obcaecati culpa officiis, ipsa nostrum quis laborum incidunt totam. Veniam voluptate nesciunt dolores mollitia quas sunt quasi!
-                Unde assumenda perspiciatis nobis neque quo non temporibus suscipit veniam architecto laudantium quae quas id dicta, provident labore, iusto hic velit, eum eius corrupti? Dolores et quos sapiente expedita aspernatur!
-                Illum, impedit eius mollitia necessitatibus sed accusamus accusantium ex earum nobis ipsa, nihil porro? Sed reiciendis adipisci perferendis modi odit, aspernatur voluptatibus incidunt nulla, distinctio, natus maiores culpa molestiae neque!
-                Neque nobis commodi voluptates fugit temporibus. Perferendis enim molestias quasi quis ex blanditiis excepturi quo, distinctio minima nam provident, commodi sapiente, mollitia ipsa! Architecto et veritatis enim corrupti sit asperiores.
-                Tempora suscipit consectetur earum quibusdam sunt omnis qui iste quas numquam? Totam dignissimos beatae voluptas facilis reprehenderit quos aut eum quis asperiores deleniti, ab qui. Sed, dolore magnam! Hic, itaque!
-                Quis quisquam consequatur ipsam ex numquam, voluptate, soluta eaque optio facilis, illum fuga eligendi nesciunt aspernatur sit! Ea a expedita blanditiis odio quia error ratione asperiores! Aliquid aut impedit id!
-                Ullam sequi voluptas error fuga quaerat praesentium voluptatibus quo? Repellat suscipit, cumque reiciendis corporis iure labore ut eos similique magnam ipsum vel excepturi! Optio, accusantium libero neque corporis vel dolore.
-                Provident veniam laudantium porro. Consequuntur accusamus dicta repellendus harum deleniti minima modi, ullam quibusdam sit repudiandae quaerat quas, tenetur repellat aut laborum earum molestias officiis. Porro, a. Earum, facere laboriosam?
-                Itaque sed voluptatibus fugiat magnam quam mollitia suscipit, quia vel repudiandae tenetur, eum, doloribus rem ab molestias dicta asperiores saepe id inventore reiciendis maiores autem! Accusantium doloribus dolorum quod laborum!
-                Possimus quibusdam dolorem optio, officiis aliquam a id molestias sunt, at ad reprehenderit ullam inventore. Corporis ex totam, nobis quis assumenda laboriosam placeat. Ullam aliquam distinctio ratione modi possimus unde.</p>
+            <div class="card-body widget-dashboard">
+                <small>Pendapatan Hari ini</small>
+                <div class="d-flex pt-2">
+                    <img src="/img/icons/icon-widget-1.png" alt="widget-1">
+                    <h5>Rp. <?= ($pendapatanHariIni['kredit'] == null) ? '0' : number_format($pendapatanHariIni['kredit']) ?> </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pengeluaran Hari ini -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-body widget-dashboard">
+                <small>Pengeluaran Hari ini</small>
+                <div class="d-flex pt-2">
+                    <img src="/img/icons/icon-widget-2.png" alt="widget-1">
+                    <h5>Rp. <?= ($pengeluaranHariIni['debit'] == null) ? '0' : number_format($pengeluaranHariIni['debit']) ?></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pendapatan Bulan ini -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-body widget-dashboard">
+                <small>Pendapatan Bulan ini</small>
+                <div class="d-flex pt-2">
+                    <img src="/img/icons/icon-widget-3.png" alt="widget-1">
+                    <h5>Rp. <?= ($pendapatanBulanIni['kredit'] == null) ? '0' : number_format($pendapatanBulanIni['kredit']) ?></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pengeluaran bulan ini -->
+    <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-body widget-dashboard">
+                <small>Pengeluaran Bulan ini</small>
+                <div class="d-flex pt-2">
+                    <img src="/img/icons/icon-widget-4.png" alt="widget-1">
+                    <h5>Rp. <?= ($pengeluaranBulanIni['debit'] == null) ? '0' : number_format($pengeluaranBulanIni['debit']) ?></h5>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row pt-5">
+    <div class="col-12 col-sm-12 col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mb-3">Pendapatan Bulanan </h4>
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= $this->endSection('content') ?>
+
+<?= $this->section('script') ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js" integrity="sha512-SuxO9djzjML6b9w9/I07IWnLnQhgyYVSpHZx0JV97kGBfTIsUYlWflyuW4ypnvhBrslz1yJ3R+S14fdCWmSmSA==" crossorigin="anonymous"></script>
+<script>
+    var ctx = document.getElementById("lineChart");
+    ctx.height = 150;
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [<?php foreach ($grafikBulanan['bulan'] as $bulan) {
+                            echo "'$bulan',";
+                        } ?>],
+            datasets: [{
+                    label: "Pendapatan",
+                    borderColor: "rgba(0,0,0,.09)",
+                    borderWidth: "1",
+                    backgroundColor: "rgba(0,0,0,.07)",
+                    data: [<?php foreach ($grafikBulanan['pendapatan'] as $pdt) {
+                                echo "$pdt,";
+                            } ?>]
+                },
+                {
+                    label: "Pengeluaran",
+                    borderColor: "rgba(0, 194, 146, 0.9)",
+                    borderWidth: "1",
+                    backgroundColor: "rgba(0, 194, 146, 0.5)",
+                    pointHighlightStroke: "rgba(26,179,148,1)",
+                    data: [<?php foreach ($grafikBulanan['pengeluaran'] as $plrn) {
+                                echo "$plrn,";
+                            } ?>]
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            }
+
+        }
+    });
+</script>
+<?= $this->endSection('script') ?>

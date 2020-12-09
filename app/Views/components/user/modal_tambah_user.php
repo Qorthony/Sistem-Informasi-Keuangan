@@ -30,6 +30,13 @@
               <option value="3">Board</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="d-flex">
+              <input type="text" name="password" class="form-control" id="password">
+              <button type="button" class="btn btn-secondary ml-1" id="generate-pw">Generate</button>
+            </div>
+          </div>
 
         </div>
         <div class="modal-footer">
@@ -40,3 +47,23 @@
     </div>
   </div>
 </div>
+
+<script>
+  const btnGenerate = document.getElementById("generate-pw");
+  const inputPW = document.getElementById("password");
+  btnGenerate.addEventListener("click", () => {
+    let pw = generateId(8);
+    inputPW.value = pw;
+  })
+
+  function dec2hex(dec) {
+    return dec.toString(16).padStart(2, "0")
+  }
+
+  // generateId :: Integer -> String
+  function generateId(len) {
+    var arr = new Uint8Array((len || 40) / 2)
+    window.crypto.getRandomValues(arr)
+    return Array.from(arr, dec2hex).join('')
+  }
+</script>

@@ -12,10 +12,10 @@
 <li class="menu-item-has-children">
     <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
 </li>
-<li class="menu-item-has-children active">
+<li class="menu-item-has-children">
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
-<li class="menu-item-has-children">
+<li class="menu-item-has-children active">
     <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
 </li>
 <li class="menu-item-has-children">
@@ -37,7 +37,7 @@
     <?= $this->include("components/alert_success.php") ?>
 <?php } ?>
 
-<h1 class="content-title">Kelola Data Jurnal</h1>
+<h1 class="content-title">Kelola Data Jurnal Penyesuaian</h1>
 <div class="row pt-5">
     <div class="col-12">
         <div class="card">
@@ -48,33 +48,35 @@
                             <input type="text" class="form-control">
                         </div>
                         <div class="col text-right">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahJurnalUmum"><i data-feather="plus-circle"></i> Tambah Data</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahJurnalPenyesuaian"><i data-feather="plus-circle"></i> Tambah Data</button>
                         </div>
-                        <?= $this->include("components/jurnal_umum/modal_tambah_jurnal_umum.php") ?>
+                        <?= $this->include("components/jurnal_penyesuaian/modal_tambah_jurnal_penyesuaian.php") ?>
                     </div>
                     <thead>
                         <tr>
                             <th scope="col">Tanggal</th>
-                            <th scope="col">No Akun</th>
                             <th scope="col">Keterangan</th>
+                            <th scope="col">No Akun</th>
                             <th scope="col">Debet</th>
                             <th scope="col">Kredit</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($data_jurnal_umum as $key => $x) : ?>
+                        <?php foreach ($data_JP as $key => $x) : ?>
                             <tr>
                                 <!-- <th scope="row"><?= $key + 1 ?></th> -->
-                                <td><?= $x["tgl_transaksi"] ?> </td>
+                                <td><?= tanggal_in_bahasa($x["tgl_penyesuaian"]) ?> </td>
+                                <td><?= $x["keterangan_penyesuaian"] ?></td>
                                 <td><?= $x["no_akun"] ?></td>
-                                <td><?= $x["debit"] ?></td>
-                                <td><?= $x["kredit"] ?></td>
-                                <td><?= $x["keterangan_transaksi"] ?></td>
+                                <td>Rp. <?= number_format($x["debit"])  ?></td>
+                                <td>Rp. <?= number_format($x["kredit"]) ?></td>
                                 <td>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#editJurnalUmum<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#hapusJurnalUmum<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#editJurnalPenyesuaian<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
+                                    <button class="btn btn-light" data-toggle="modal" data-target="#hapusJurnalPenyesuaian<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
+
                                     <!-- Modal Edit User-->
-                                    <div class="modal fade" id="editJurnalUmum<?= $key ?>" tabindex="-1" aria-labelledby="editJurnalUmumLabel" aria-hidden="true">
+                                    <div class="modal fade" id="editJurnalPenyesuaian<?= $key ?>" tabindex="-1" aria-labelledby="editJurnalPenyesuaianLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header d-flex">
@@ -83,19 +85,23 @@
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
-                                                <form action="/jurnal_umum/edit/<?= $x["no_transaksi"] ?>" method="POST">
+                                                <form action="/jurnal_penyesuaian/edit/<?= $x["id_penyesuaian"] ?>" method="POST">
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="tanggal">Tanggal</label>
-                                                            <input type="date" name="tanggal" class="form-control" id="tgl_transaksi" value="<?= $x["tgl_transaksi"] ?>">
+                                                            <input type="date" name="tanggal" class="form-control" id="tgl_transaksi" value="<?= $x["tgl_penyesuaian"] ?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="keterangan">Keterangan</label>
-                                                            <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan_transaksi"] ?>">
+                                                            <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan_penyesuaian"] ?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="no_akun">No Akun</label>
-                                                            <input type="text" name="no_akun" class="form-control" id="no_akun" value="<?= $x["no_akun"] ?>">
+                                                            <select name="akun" id="no_akun" class="form-control">
+                                                                <?php foreach ($akuns as $akun) : ?>
+                                                                    <option <?= ($akun['no_akun']==$x['no_akun'])?'selected':'' ?> value="<?= $akun['no_akun'] ?>"> <?= $akun['no_akun'] ?> | <?= $akun['nama_akun'] ?> </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="debit">Debet</label>
@@ -118,11 +124,11 @@
                                     </div>
                                     <!-- End Modal Edit User -->
                                     <!-- Modal Hapus User -->
-                                    <div class="modal fade" id="hapusJurnalUmum<?= $key ?>" tabindex="-1" aria-labelledby="hapusJurnalUmumLabel" aria-hidden="true">
+                                    <div class="modal fade" id="hapusJurnalPenyesuaian<?= $key ?>" tabindex="-1" aria-labelledby="hapusJurnalUmumLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header d-flex" style="background-color: rgba(46,94,153,0.65);">
-                                                    <h5 class="modal-title" id="hapusJurnalUmumLabel">Konfirmasi</h5>
+                                                    <h5 class="modal-title" id="hapusJurnalPenyesuaianLabel">Konfirmasi</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -131,7 +137,7 @@
                                                     <p class="text-body">Apakah anda yakin menghapus data ini?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a href="/akun/del/<?= $x["no_transaksi"] ?>" class="btn btn-danger">Hapus</a>
+                                                    <a href="/jurnal_penyesuaian/del/<?= $x["id_penyesuaian"] ?>" class="btn btn-danger">Hapus</a>
                                                     <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
                                                 </div>
                                             </div>

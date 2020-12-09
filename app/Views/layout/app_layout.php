@@ -174,7 +174,7 @@
                         Copyright &copy; 2020
                     </div>
                     <div class="col-sm-6 text-right">
-                        Developed by Kelompok 6 RPL
+                        Developed by Kelompok 6 RPL SI5D UINJKT
                     </div>
                 </div>
             </div>

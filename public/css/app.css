@@ -1,3 +1,20 @@
 .content-title {
   color: #ffffff;
 }
+
+.widget-dashboard small{
+  color: #151CC6;
+  font-weight: bold;
+}
+
+
+.widget-dashboard img{
+  width: 50px;
+  height: 30px;
+}
+
+.widget-dashboard h5{
+  text-align: center;
+  font-weight: bold;
+  flex-grow: 1;
+}

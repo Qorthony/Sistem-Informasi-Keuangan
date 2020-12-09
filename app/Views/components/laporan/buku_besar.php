@@ -49,16 +49,16 @@
                                     <tr>
                                         <th scope="row"> <?= tanggal_in_bahasa($item['tgl_transaksi']) ?></th>
                                         <td class="<?= ($item['debit'] == '0') ? 'text-right' : 'text-left'; ?> "> <?= $item['keterangan_transaksi'] ?> </td>
-                                        <td> Rp. <?= $item['debit'] ?> </td>
-                                        <td> Rp. <?= $item['kredit'] ?> </td>
-                                        <td> Rp. <?= $item['saldo']['debit'] ?></td>
-                                        <td>Rp. <?= $item['saldo']['kredit'] ?></td>
+                                        <td> Rp. <?= number_format($item['debit']) ?> </td>
+                                        <td> Rp. <?= number_format($item['kredit']) ?> </td>
+                                        <td> Rp. <?= number_format($item['saldo']['debit']) ?></td>
+                                        <td> Rp. <?= number_format($item['saldo']['kredit']) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
 
                                 <tr class="font-weight-bold">
                                     <td colspan="4" class="text-center">JUMLAH</td>
-                                    <td>Rp. <?= $akun['total_saldo'] ?></td>
+                                    <td>Rp. <?= number_format($akun['total_saldo']) ?></td>
                                 </tr>
                             </tbody>
                         </table>

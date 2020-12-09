@@ -19,7 +19,6 @@ class Login extends BaseController
 		$password 	= $this->request->getVar('password');
 		$data 		= $model->where('email', $email)
 			->orWhere('nip', $email)
-			->orWhere('username', $email)
 			->first();
 
 		if ($data) {
@@ -29,14 +28,15 @@ class Login extends BaseController
 			if ($verify_pass) {
 				// echo "<h1>Berhasil login</h1>";
 				$ses_data = [
-					'user_id'	=> $data['nip'],
-					'user_name'	=> $data['username'],
-					'user_email' => $data['email'],
-					'logged_in'	=> TRUE
+					'user_id'		=> $data['nip'],
+					'user_name'		=> $data['username'],
+					'user_email' 	=> $data['email'],
+					'user_role'		=> $data['jenis_user'],
+					'logged_in'		=> TRUE
 				];
 
 				$session->set($ses_data);
-				return redirect()->to('/dashboard');
+				return redirect()->to('/');
 			} else {
 				// echo "<h1>Password salah</h1>";
 				$session->setFlashdata('msg', 'Password salah!');
