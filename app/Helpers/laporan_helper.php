@@ -1,8 +1,8 @@
 <?php
 
-function getDataJurnal($mulai, $selesai, $select = "akun.nama_akun,all_jurnal.*")
+function getDataJurnal($mulai, $selesai, $bahasa = "id")
 {
-    $sql = "SELECT " . $select . " FROM 
+    $sql = "SELECT akun.nama_akun,all_jurnal.* FROM 
 				(SELECT * FROM jurnal_umum 
 		 			UNION ALL
 				SELECT * FROM jurnal_penyesuaian
@@ -14,7 +14,26 @@ function getDataJurnal($mulai, $selesai, $select = "akun.nama_akun,all_jurnal.*"
         'tgl_selesai' => date('Y-m-t', strtotime($selesai))
     ])->getResult('array');
 
+    if ($bahasa=='en') {
+        $text = getTeks($result, ['nama_akun', 'keterangan_transaksi']);
+        $translated = translateToEnglish($text);
+        // dd($translated, $text);
+        $result = replaceWithEnglish($result, $translated);
+        // dd($result);
+    }
+
     return $result;
+}
+
+function replaceWithEnglish($data, $text){
+    $j=0;
+    for ($i=0; $i <count($data) ; $i++) { 
+        // echo $i."<br>";
+        $data[$i]['nama_akun']              = $text['translations'][$j]['translation'];
+        $data[$i]['keterangan_transaksi']   = $text['translations'][$j+1]['translation'];
+        $j+=2;
+    }
+    return $data;
 }
 
 // mengecek apakah akun terdapat dalam array
@@ -55,7 +74,7 @@ function hitungSaldo($no_akun, $debit, $kredit, $saldo_debit, $saldo_kredit)
     return $saldo;
 }
 
-function collectDataLR($data, $tipe)
+function collectDataLR($data, $tipe, $rate)
 {
     $items = [];
     $total_items = ["debit" => 0, "kredit" => 0];
@@ -89,11 +108,13 @@ function collectDataLR($data, $tipe)
                 if ($value['no_akun'] == $akun['no_akun']) {
                     $saldo = hitungSaldo(
                         $value['no_akun'],
-                        $value['debit'],
-                        $value['kredit'],
+                        $value['debit'] / $rate,
+                        $value['kredit'] / $rate,
                         !empty($saldo) ? $saldo['debit'] : 0,
                         !empty($saldo) ? $saldo['kredit'] : 0
                     );
+                    // echo $saldo['debit']."<br>";
+                    // echo $saldo['kredit']."<br>";
                 }
             }
 
@@ -105,8 +126,23 @@ function collectDataLR($data, $tipe)
             array_push($items, $akun_items);
             $total_items['debit'] += $saldo['debit'];
             $total_items['kredit'] += $saldo['kredit'];
+            // echo "<br>".$total_items['debit']."<br>";
+            // echo $total_items['kredit']."<br>";
         }
     }
+    // dd($items);
 
     return ["items" => $items, "total_items" => $total_items];
+}
+
+function getTeks($data, array $kolom)
+{
+    $text = [];
+    foreach ($data as $value) {
+        foreach ($kolom as $kol) {
+            array_push($text, strtolower($value[$kol]));
+        }
+    }
+    // dd($text);
+    return $text;
 }

@@ -7,7 +7,7 @@
                 <div class="col-12 col-md-4">
                     <select name="akun" class="form-control" id="akun">
                         <option value="semua">Semua</option>
-                        <?php foreach ($data as $akun) : ?>
+                        <?php foreach ($data['buku_besar'] as $akun) : ?>
                             <option value="<?= str_replace(" ", "-", $akun['nama_akun']) ?>"><?= $akun['nama_akun'] ?></option>
                         <?php endforeach; ?>
 
@@ -24,7 +24,7 @@
                 <p>Periode <?= date('j/m/Y', strtotime($filter['start_date'])) . ' - ' . date('t/m/Y', strtotime($filter['end_date']))   ?></p>
             </header>
             <div class="list-akun">
-                <?php foreach ($data as $akun) : ?>
+                <?php foreach ($data['buku_besar'] as $akun) : ?>
                     <div class="item-akun mb-5" id="<?= str_replace(" ", "-", $akun['nama_akun']) ?>" style="display: none;">
                         <div class="row">
                             <div class="col text-left">Akun : <?= $akun['nama_akun'] ?> </div>
@@ -77,7 +77,7 @@
 <script>
     const akunSelector = document.getElementById("akun");
     let opsi_akun = [
-        <?php foreach ($data as $akun) : ?>
+        <?php foreach ($data['buku_besar'] as $akun) : ?>
             <?= "'" . str_replace(" ", "-", $akun['nama_akun']) . "'," ?>
         <?php endforeach; ?>
     ]

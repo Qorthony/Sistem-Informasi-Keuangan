@@ -12,7 +12,7 @@ class Laporan extends BaseController
 {
 	function __construct()
 	{
-		helper(['tanggalindo', 'laporan']);
+		helper(['tanggalindo', 'laporan', 'converttousd']);
 		$this->db = db_connect();
 	}
 
@@ -37,13 +37,14 @@ class Laporan extends BaseController
 
 		switch ($filter['laporan']) {
 			case 'bb':
-				$data = $this->getBB($filter['start_date'], $filter['end_date']);
+				$data = $this->getBB($filter['start_date'], $filter['end_date'], $filter['mata_uang']);
+				// dd($data);
 				break;
 			case 'ns':
-				$data = $this->getNS($filter['start_date'], $filter['end_date']);
+				$data = $this->getNS($filter['start_date'], $filter['end_date'], $filter['mata_uang']);
 				break;
 			case 'lr':
-				$data = $this->getLR($filter['start_date'], $filter['end_date']);
+				$data = $this->getLR($filter['start_date'], $filter['end_date'], $filter['mata_uang']);
 				break;
 
 			default:
@@ -57,50 +58,72 @@ class Laporan extends BaseController
 	}
 
 	// Mengambil data laba rugi
-	private function getLR($mulai, $selesai)
+	private function getLR($mulai, $selesai, $mata_uang)
 	{
-		$result = getDataJurnal($mulai, $selesai);
-		if (!empty($result)) {
-			$result = $this->restructureLR($result);
+		if ($mata_uang == 'usd') {
+			$result = getDataJurnal($mulai, $selesai, 'en');
+		} else {
+			$result = getDataJurnal($mulai, $selesai);
 		}
+
 		// dd($result);
+
+		if (!empty($result)) {
+			if ($mata_uang == 'usd') {
+				$rate = getRate();
+				$result = $this->restructureLR($result, $rate);
+				$result['rate'] = $rate;
+			} else {
+				$result = $this->restructureLR($result);
+			}
+		}
+
 
 		return $result;
 	}
 
-	private function restructureLR($data)
+	private function restructureLR($data, $rate = 1)
 	{
-		$pendapatan = collectDataLR($data, "pendapatan");
+		$pendapatan = collectDataLR($data, "pendapatan", $rate);
 
-		$beban = collectDataLR($data, "beban");
+		$beban = collectDataLR($data, "beban", $rate);
 
-		$laba_bersih = $pendapatan['total_items']['kredit']-$beban['total_items']['debit'];
+		$laba_bersih = ($pendapatan['total_items']['kredit']) - ($beban['total_items']['debit']);
 
 		$labaRugi = [
-			"pendapatan"=>$pendapatan,
-			"beban"=>$beban,
-			"laba_bersih"=>$laba_bersih
+			"pendapatan" => $pendapatan,
+			"beban" => $beban,
+			"laba_bersih" => $laba_bersih
 		];
 
-		// dd($labaRugi);
+		// dd($pendapatan);
 		return $labaRugi;
 	}
 
 	// mengambil data Neraca Saldo
-	private function getNS($mulai, $selesai)
+	private function getNS($mulai, $selesai, $mata_uang)
 	{
-		$result = getDataJurnal($mulai, $selesai);
-		// dd($result);
-		if (!empty($result)) {
-			$result = $this->restructureNS($result);
+		if ($mata_uang == 'usd') {
+			$result = getDataJurnal($mulai, $selesai, 'en');
+		} else {
+			$result = getDataJurnal($mulai, $selesai);
 		}
+		if (!empty($result)) {
+			if ($mata_uang == 'usd') {
+				$rate = getRate();
+				$result = $this->restructureNS($result, $rate);
+				$result['rate'] = $rate;
+			} else {
+				$result = $this->restructureNS($result);
+			}
+		}
+		// dd($result);
 
 		return $result;
 	}
 
-	private function restructureNS($data)
+	private function restructureNS($data, $rate = 1)
 	{
-
 		$akuns = [];
 		$jml_debit = 0;
 		$jml_kredit = 0;
@@ -115,8 +138,8 @@ class Laporan extends BaseController
 				if ($item['no_akun'] == $row['no_akun']) {
 					$saldo = hitungSaldo(
 						$item['no_akun'],
-						$item['debit'],
-						$item['kredit'],
+						$item['debit'] / $rate,
+						$item['kredit'] / $rate,
 						!empty($saldo) ? $saldo['debit'] : 0,
 						!empty($saldo) ? $saldo['kredit'] : 0
 					);
@@ -147,18 +170,32 @@ class Laporan extends BaseController
 	}
 
 	// Mengambil data Buku besar
-	private function getBB($mulai, $selesai)
+	private function getBB($mulai, $selesai, $mata_uang)
 	{
-		$result = getDataJurnal($mulai, $selesai);
-		// dd($result);
-		if (!empty($result)) {
-			$result = $this->restructureBB($result);
+		if ($mata_uang == 'usd') {
+			$result = getDataJurnal($mulai, $selesai, 'en');
+		} else {
+			$result = getDataJurnal($mulai, $selesai);
 		}
-
+		if (!empty($result)) {
+			if ($mata_uang == 'usd') {
+				$rate = getRate();
+				$result = [
+					"buku_besar"=>$this->restructureBB($result, $rate),
+					"rate"=>$rate
+				];
+			} else {
+				$result = [
+					"buku_besar"=>$this->restructureBB($result)
+				];
+			}
+			// dd($result);
+		}
+		
 		return $result;
 	}
 
-	private function restructureBB($data)
+	private function restructureBB($data, $rate=1)
 	{
 		$bukubesar = [
 			[
@@ -190,8 +227,8 @@ class Laporan extends BaseController
 
 					$saldo_normal = hitungSaldo(
 						$row['no_akun'],
-						$row['debit'],
-						$row['kredit'],
+						$row['debit']/$rate,
+						$row['kredit']/$rate,
 						!empty($bukubesar[$key]['transaksi']) ? $bukubesar[$key]['transaksi'][array_key_last($bukubesar[$key]['transaksi'])]['saldo']['debit'] : 0,
 						!empty($bukubesar[$key]['transaksi']) ? $bukubesar[$key]['transaksi'][array_key_last($bukubesar[$key]['transaksi'])]['saldo']['kredit'] : 0
 					);
@@ -200,8 +237,8 @@ class Laporan extends BaseController
 						"no_transaksi" 			=> $row['no_transaksi'],
 						"tgl_transaksi" 		=> $row['tgl_transaksi'],
 						"keterangan_transaksi" 	=> $row['keterangan_transaksi'],
-						"debit" 				=> $row['debit'],
-						"kredit" 				=> $row['kredit'],
+						"debit" 				=> $row['debit']/$rate,
+						"kredit" 				=> $row['kredit']/$rate,
 						"saldo"					=> $saldo_normal,
 					];
 					array_push($bukubesar[$key]['transaksi'], $transaksi);
