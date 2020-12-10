@@ -15,9 +15,18 @@ class JurnalPenyesuaian extends BaseController
 	}
 	public function index()
 	{
+		$keyword = $this->request->getVar('keyword');
 		$jurnal_penyesuaian = new JPModel();
-		$data_jurnal_penyesuaian = $jurnal_penyesuaian->findAll();
-        
+		if ( $keyword ) {
+			$data_jurnal_penyesuaian =  $jurnal_penyesuaian->like('no_akun',$keyword)
+								->orLike('tgl_penyesuaian', $keyword)
+								->orLike('keterangan_penyesuaian', $keyword)
+								->findAll();
+								// dd($data_jurnal_penyesuaian); 
+		}else {
+			$data_jurnal_penyesuaian = $jurnal_penyesuaian->findAll();
+		}
+		
         $akuns = new AkunModel();
         $akuns = $akuns->findAll();
 

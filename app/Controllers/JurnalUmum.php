@@ -9,8 +9,18 @@ class JurnalUmum extends BaseController
 {
 	public function index()
 	{
+		$keyword = $this->request->getVar('keyword');
 		$jurnal_umum = new JurnalUmumModel();
-		$data_jurnal_umum = $jurnal_umum->findAll();
+		if ( $keyword ) {
+			$data_jurnal_umum =  $jurnal_umum->like('no_akun',$keyword)
+								->orLike('tgl_transaksi', $keyword)
+								->orLike('keterangan_transaksi', $keyword)
+								->findAll();
+								// dd($data_jurnal_umum); 
+		}else {
+			$data_jurnal_umum = $jurnal_umum->findAll();
+		}
+		
 		// dd($data_user); 
 		return view('data_jurnal_umum', ["data_jurnal_umum" => $data_jurnal_umum]);
 	}

@@ -9,8 +9,17 @@ class Akun extends BaseController
 {
 	public function index()
 	{
+		$keyword = $this->request->getVar('keyword');
 		$akun = new AkunModel();
-		$data_akun = $akun->findAll();
+		if ( $keyword ) {
+			$data_akun =  $akun->like('no_akun',$keyword)
+								->orLike('nama_akun', $keyword)
+								->findAll();
+								// dd($data_akun); 
+		}else {
+			$data_akun = $akun->findAll();
+		}
+		
 		// dd($data_user); 
 		return view('data_akun', ["data_akun" => $data_akun]);
 	}
@@ -20,7 +29,7 @@ class Akun extends BaseController
 		if (!$this->validate([
 			'no_akun'			=> "required|is_unique[akun.no_akun]|numeric",
 			'nama_akun'  		=> 'required|alpha_numeric_space|is_unique[akun.nama_akun]',
-			'keterangan'	=> "required"
+			'keterangan'		=> "required"
 		])) {
 			return redirect()->to('/akun')->with('errors', $this->validator->getErrors());
 		}

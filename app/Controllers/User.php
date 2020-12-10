@@ -9,9 +9,18 @@ class User extends BaseController
 {
 	public function index()
 	{
+		$keyword = $this->request->getVar('keyword');
 		$user = new UserModel();
-		$data_user = $user->findAll();
-		// dd($data_user); 
+		if ( $keyword ) {
+			$data_user =  $user->like('nip',$keyword)
+								->orLike('username', $keyword)
+								->orLike('email', $keyword)
+								->findAll();
+								// dd($data_user); 
+		}else {
+			$data_user = $user->findAll();
+		}
+		
 		return view('data_user', ["data_users" => $data_user]);
 	}
 
@@ -102,13 +111,11 @@ class User extends BaseController
 		$nip 		= $this->request->getPost('nip');
 		$nama 		= $this->request->getPost('nama');
 		$email 		= $this->request->getPost('email');
-		$keterangan = $this->request->getPost('keterangan');
 
 		if (!$this->validate([
 			'nip'			=> "required|is_unique[users.nip,nip,{$nip}]|numeric",
 			'email' 		=> "required|is_unique[users.email,email,{$email}]|valid_email",
 			'nama'  		=> "required|alpha_numeric_space|is_unique[users.username,username,{$nama}]",
-			'keterangan'	=> "required"
 		])) {
 			return redirect()->to('/profile')->with('errors', $this->validator->getErrors());
 		}
@@ -118,7 +125,6 @@ class User extends BaseController
 			"nip"			=> $nip,
 			"username"		=> $nama,
 			"email"			=> $email,
-			"jenis_user"	=> $keterangan,
 		];
 		$user->update(session("user_id"), $data);
 

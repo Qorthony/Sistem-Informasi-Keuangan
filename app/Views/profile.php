@@ -7,21 +7,35 @@
 <li class="menu-item-has-children">
     <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
 </li>
+<?php if (session('user_role')=='1') { ?>
 <li class="menu-item-has-children">
     <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
     <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
     <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
 </li>
+<?php } ?>
+
 <li class="menu-item-has-children">
     <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
 </li>
+
+
 <?= $this->endSection('sidebar-menu') ?>
 <!-- Sidebar -->
 
@@ -78,7 +92,7 @@
                                 <div class="form-group row">
                                     <label for="keterangan" class="col-sm-3 col-form-label">Keterangan</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control" name="keterangan">
+                                        <select class="form-control" name="keterangan" disabled>
                                             <option value="1" <?= $selected = ($profile["jenis_user"]==1) ? "selected" : "" ; ?> >Admin</option>
                                             <option value="2" <?= $selected = ($profile["jenis_user"]==2) ? "selected" : "" ; ?> >Accounting</option>
                                             <option value="3" <?= $selected = ($profile["jenis_user"]==3) ? "selected" : "" ; ?> >Board</option>

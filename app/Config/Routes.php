@@ -43,28 +43,28 @@ $routes->get('/logout','Login::logout');
 $routes->get('/','Home::dashboard',["filter"=>"auth"]);
 
 // User
-$routes->get('/user','User::index',["filter"=>"auth"]);
-$routes->post('/user/add','User::add',["filter"=>"auth"]);
-$routes->get('/user/del/(:num)','User::delete/$1',["filter"=>"auth"]);
-$routes->post('/user/edit/(:num)','User::edit/$1',["filter"=>"auth"]);
+$routes->get('/user','User::index',["filter"=>"role:1"]);
+$routes->post('/user/add','User::add',["filter"=>"role:1"]);
+$routes->get('/user/del/(:num)','User::delete/$1',["filter"=>"role:1"]);
+$routes->post('/user/edit/(:num)','User::edit/$1',["filter"=>"role:1"]);
 
 // Akun
-$routes->get('/akun','Akun::index',["filter"=>"auth"]);
-$routes->post('/akun/add','Akun::add',["filter"=>"auth"]);
-$routes->get('/akun/del/(:num)','Akun::delete/$1',["filter"=>"auth"]);
-$routes->post('/akun/edit/(:num)','Akun::edit/$1',["filter"=>"auth"]);
+$routes->get('/akun','Akun::index',["filter"=>"role:1,2"]);
+$routes->post('/akun/add','Akun::add',["filter"=>"role:1,2"]);
+$routes->get('/akun/del/(:num)','Akun::delete/$1',["filter"=>"role:1,2"]);
+$routes->post('/akun/edit/(:num)','Akun::edit/$1',["filter"=>"role:1,2"]);
 
 // Jurnal Umum
-$routes->get('/jurnal_umum','JurnalUmum::index',["filter"=>"auth"]);
-$routes->post('/jurnal_umum/add','JurnalUmum::add',["filter"=>"auth"]);
-$routes->get('/jurnal_umum/del/(:num)','JurnalUmum::delete/$1',["filter"=>"auth"]);
-$routes->post('/jurnal_umum/edit/(:num)','JurnalUmum::edit/$1',["filter"=>"auth"]);
+$routes->get('/jurnal_umum','JurnalUmum::index',["filter"=>"role:1,2"]);
+$routes->post('/jurnal_umum/add','JurnalUmum::add',["filter"=>"role:1,2"]);
+$routes->get('/jurnal_umum/del/(:num)','JurnalUmum::delete/$1',["filter"=>"role:1,2"]);
+$routes->post('/jurnal_umum/edit/(:num)','JurnalUmum::edit/$1',["filter"=>"role:1,2"]);
 
 // Jurnal Penyesuaian
-$routes->get('/jurnal_penyesuaian','JurnalPenyesuaian::index',["filter"=>"auth"]);
-$routes->post('/jurnal_penyesuaian/add','JurnalPenyesuaian::add',["filter"=>"auth"]);
-$routes->get('/jurnal_penyesuaian/del/(:num)','JurnalPenyesuaian::delete/$1',["filter"=>"auth"]);
-$routes->post('/jurnal_penyesuaian/edit/(:num)','JurnalPenyesuaian::edit/$1',["filter"=>"auth"]);
+$routes->get('/jurnal_penyesuaian','JurnalPenyesuaian::index',["filter"=>"role:1,2"]);
+$routes->post('/jurnal_penyesuaian/add','JurnalPenyesuaian::add',["filter"=>"role:1,2"]);
+$routes->get('/jurnal_penyesuaian/del/(:num)','JurnalPenyesuaian::delete/$1',["filter"=>"role:1,2"]);
+$routes->post('/jurnal_penyesuaian/edit/(:num)','JurnalPenyesuaian::edit/$1',["filter"=>"role:1,2"]);
 
 // Profile
 $routes->get('/profile','User::profile',["filter"=>"auth"]);

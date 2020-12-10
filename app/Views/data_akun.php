@@ -6,18 +6,30 @@
 <li class="menu-item-has-children">
     <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
 </li>
+<?php if (session('user_role')=='1') { ?>
 <li class="menu-item-has-children">
     <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children active">
     <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
     <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
 </li>
+<?php } ?>
+
 <li class="menu-item-has-children">
     <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
 </li>
@@ -45,9 +57,14 @@
                 <table class="table table-striped">
                     <div class="row pb-3 pt-2">
                         <div class="col-3">
-                            <input type="text" class="form-control">
+                            <form action="/akun" method="get">
+                                <input name="keyword" type="text" class="form-control" placeholder="Cari akun">
+                            </form>
                         </div>
                         <div class="col text-right">
+                            <?php if (isset($_REQUEST['keyword'])) { ?>
+                                <a href="/akun" class="btn btn-success">Tampilkan Semua</a>
+                            <?php } ?>
                             <button class="btn btn-primary" data-toggle="modal" data-target="#tambahAkun"><i data-feather="plus-circle"></i> Tambah Data</button>
                         </div>
                         <?= $this->include("components/akun/modal_tambah_akun.php") ?>
@@ -94,8 +111,8 @@
                                                             <label for="keterangan">Keterangan</label>
                                                             <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan"] ?>">
                                                             <!-- <select name="keterangan" class="form-control" id="keterangan"> -->
-                                                                <!-- <?php switch ($x["keterangan"]) {
-                                                                    case 1: ?>
+                                                            <!-- <?php switch ($x["keterangan"]) {
+                                                                        case 1: ?>
                                                                         <option value="1" selected>Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan</option>
@@ -108,8 +125,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 2: ?>
+                                                                            break;
+                                                                        case 2: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2" selected>Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -122,8 +139,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 3: ?>
+                                                                            break;
+                                                                        case 3: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3" selected>Perlengkapan Usaha</option>
@@ -136,8 +153,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 4: ?>
+                                                                            break;
+                                                                        case 4: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -150,8 +167,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 5: ?>
+                                                                            break;
+                                                                        case 5: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -164,8 +181,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 6: ?>
+                                                                            break;
+                                                                        case 6: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -178,8 +195,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 7: ?>
+                                                                            break;
+                                                                        case 7: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -192,8 +209,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 8: ?>
+                                                                            break;
+                                                                        case 8: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -206,8 +223,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 9: ?>
+                                                                            break;
+                                                                        case 9: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -220,8 +237,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 10: ?>
+                                                                            break;
+                                                                        case 10: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -234,8 +251,8 @@
                                                                         <option value="10" selected>Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
-                                                                    case 11: ?>
+                                                                            break;
+                                                                        case 11: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -248,12 +265,12 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11" selected>Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                        break;
+                                                                            break;
 
-                                                                    default:
-                                                                        # code...
-                                                                        break;
-                                                                } ?> -->
+                                                                        default:
+                                                                            # code...
+                                                                            break;
+                                                                    } ?> -->
 
                                                             </select>
                                                         </div>

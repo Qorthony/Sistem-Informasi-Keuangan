@@ -6,18 +6,30 @@
 <li class="menu-item-has-children">
     <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
 </li>
+<?php if (session('user_role')=='1') { ?>
 <li class="menu-item-has-children">
     <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
     <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children active">
     <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
 </li>
+<?php } ?>
+
+<?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
     <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
 </li>
+<?php } ?>
+
 <li class="menu-item-has-children">
     <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
 </li>
@@ -45,9 +57,14 @@
                 <table class="table table-striped">
                     <div class="row pb-3 pt-2">
                         <div class="col-3">
-                            <input type="text" class="form-control">
+                            <form action="/jurnal_umum" method="get">
+                                <input name="keyword" type="text" class="form-control" placeholder="Cari Transaksi">
+                            </form>
                         </div>
                         <div class="col text-right">
+                            <?php if (isset($_REQUEST['keyword'])) { ?>
+                                <a href="/jurnal_umum" class="btn btn-success">Tampilkan Semua</a>
+                            <?php } ?>
                             <button class="btn btn-primary" data-toggle="modal" data-target="#tambahJurnalUmum"><i data-feather="plus-circle"></i> Tambah Data</button>
                         </div>
                         <?= $this->include("components/jurnal_umum/modal_tambah_jurnal_umum.php") ?>

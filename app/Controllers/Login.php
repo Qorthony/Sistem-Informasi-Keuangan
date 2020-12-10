@@ -39,12 +39,12 @@ class Login extends BaseController
 				return redirect()->to('/');
 			} else {
 				// echo "<h1>Password salah</h1>";
-				$session->setFlashdata('msg', 'Password salah!');
+				$session->setFlashdata('errors', 'Password salah!');
 				return redirect()->to('/login');
 			}
 		} else {
 			// echo "<h1>Email salah</h1>";
-			$session->setFlashdata('msg', 'Email salah!');
+			$session->setFlashdata('errors', 'Email salah!');
 			return redirect()->to('/login');
 		}
 	}

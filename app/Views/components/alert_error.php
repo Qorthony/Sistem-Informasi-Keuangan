@@ -12,9 +12,13 @@
                 <div class="alert alert-danger">
                     <ul>
                         <?php $errors = session('errors');
-                        foreach ($errors as $e) : ?>
-                            <li><?= $e ?></li>
-                        <?php endforeach; ?>
+                        if (is_array($errors)) {
+                            foreach ($errors as $e) : ?>
+                                <li><?= $e ?></li>
+                            <?php endforeach;
+                        } else { ?>
+                            <li><?= $errors ?></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
