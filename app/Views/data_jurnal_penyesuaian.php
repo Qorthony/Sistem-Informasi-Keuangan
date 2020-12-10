@@ -58,7 +58,7 @@
                     <div class="row pb-3 pt-2">
                         <div class="col-3">
                             <form action="/jurnal_penyesuaian" method="get">
-                                <input name="keyword" type="text" class="form-control" placeholder="Cari Penyesuaian">
+                                <input required name="keyword" type="text" class="form-control" placeholder="Cari Penyesuaian">
                             </form>
                         </div>
                         <div class="col text-right">
@@ -111,11 +111,11 @@
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="tanggal">Tanggal</label>
-                                                                    <input type="date" name="tanggal" class="form-control" id="tgl_transaksi" value="<?= $x["tgl_penyesuaian"] ?>">
+                                                                    <input required type="date" name="tanggal" class="form-control" id="tgl_transaksi" value="<?= $x["tgl_penyesuaian"] ?>">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="keterangan">Keterangan</label>
-                                                                    <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan_penyesuaian"] ?>">
+                                                                    <input required type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan_penyesuaian"] ?>">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="no_akun">No Akun</label>
@@ -127,11 +127,11 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="debit">Debet</label>
-                                                                    <input type="number" name="debit" class="form-control" id="debit" value="<?= $x["debit"] ?>">
+                                                                    <input required type="number" name="debit" class="form-control" id="debit" value="<?= $x["debit"] ?>">
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="kredit">Kredit</label>
-                                                                    <input type="number" name="kredit" class="form-control" id="kredit" value="<?= $x["kredit"] ?>">
+                                                                    <input required type="number" name="kredit" class="form-control" id="kredit" value="<?= $x["kredit"] ?>">
                                                                     </select>
                                                                 </div>
 

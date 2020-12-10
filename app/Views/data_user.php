@@ -58,7 +58,7 @@
                     <div class="row pb-3 pt-2">
                         <div class="col-3">
                             <form action="/user" method="get">
-                                <input name="keyword" type="text" class="form-control" placeholder="Cari User">
+                                <input required name="keyword" type="text" class="form-control" placeholder="Cari User">
                             </form>
                         </div>
                         <div class="col text-right">
@@ -109,15 +109,15 @@
                                                     <div class="modal-body">
                                                         <div class="form-group">
                                                             <label for="nip">NIP</label>
-                                                            <input type="text" name="nip" class="form-control" id="nip" value="<?= $x["nip"] ?>">
+                                                            <input required type="text" name="nip" class="form-control" id="nip" value="<?= $x["nip"] ?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="nama">Nama</label>
-                                                            <input type="text" name="nama" class="form-control" id="nama" value="<?= $x["username"] ?>">
+                                                            <input required type="text" name="nama" class="form-control" id="nama" value="<?= $x["username"] ?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="email">Email</label>
-                                                            <input type="text" name="email" class="form-control" id="email" value="<?= $x["email"] ?>">
+                                                            <input required type="text" name="email" class="form-control" id="email" value="<?= $x["email"] ?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="keterangan">Keterangan</label>
@@ -151,7 +151,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="password">Password</label>
-                                                            <input type="text" name="nama" class="form-control" id="password" value="<?= $x["username"] ?>">
+                                                            <input required type="text" name="nama" class="form-control" id="password" value="<?= $x["username"] ?>">
                                                         </div>
 
                                                     </div>

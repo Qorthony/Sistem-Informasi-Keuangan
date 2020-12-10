@@ -59,7 +59,7 @@
                     <div class="row pb-3 pt-2">
                         <div class="col-3">
                             <form action="/akun" method="get">
-                                <input name="keyword" type="text" class="form-control" placeholder="Cari akun">
+                                <input required name="keyword" type="text" class="form-control" placeholder="Cari akun">
                             </form>
                         </div>
                         <div class="col text-right">
@@ -108,178 +108,15 @@
                                                         <div class="modal-body">
                                                             <div class="form-group">
                                                                 <label for="no_akun">No Akun</label>
-                                                                <input type="text" name="no_akun" class="form-control" id="no_akun" value="<?= $x["no_akun"] ?>">
+                                                                <input required type="text" name="no_akun" class="form-control" id="no_akun" value="<?= $x["no_akun"] ?>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="nama_akun">Nama Akun</label>
-                                                                <input type="text" name="nama_akun" class="form-control" id="nama_akun" value="<?= $x["nama_akun"] ?>">
+                                                                <input required type="text" name="nama_akun" class="form-control" id="nama_akun" value="<?= $x["nama_akun"] ?>">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="keterangan">Keterangan</label>
-                                                                <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan"] ?>">
-                                                                <!-- <select name="keterangan" class="form-control" id="keterangan"> -->
-                                                                <!-- <?php switch ($x["keterangan"]) {
-                                                                            case 1: ?>
-                                                                        <option value="1" selected>Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan</option>
-                                                                        <option value="4">Peralatan</option>
-                                                                        <option value="5">Akumulasi Penyusutan Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 2: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2" selected>Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 3: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3" selected>Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 4: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4" selected>Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 5: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5" selected>Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 6: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6" selected>Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 7: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7" selected>Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 8: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8" selected>Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 9: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9" selected>Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 10: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10" selected>Beban Perlengkapan</option>
-                                                                        <option value="11">Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-                                                                            case 11: ?>
-                                                                        <option value="1">Kas</option>
-                                                                        <option value="2">Piutang Usaha</option>
-                                                                        <option value="3">Perlengkapan Usaha</option>
-                                                                        <option value="4">Peralatan Usaha</option>
-                                                                        <option value="5">Akumulasi Peralatan</option>
-                                                                        <option value="6">Utang Usaha</option>
-                                                                        <option value="7">Modal</option>
-                                                                        <option value="8">Pendapatan Jasa</option>
-                                                                        <option value="9">Beban</option>
-                                                                        <option value="10">Beban Perlengkapan</option>
-                                                                        <option value="11" selected>Beban Penyusutan Peralatan</option>
-                                                                    <?php
-                                                                                break;
-
-                                                                            default:
-                                                                                # code...
-                                                                                break;
-                                                                        } ?> -->
-
-                                                                </select>
+                                                                <input required type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan"] ?>">
                                                             </div>
 
                                                         </div>

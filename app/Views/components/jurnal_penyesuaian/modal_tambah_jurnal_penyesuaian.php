@@ -16,11 +16,11 @@ use CodeIgniter\I18n\Time;
         <div class="modal-body">
           <div class="form-group">
               <label for="tanggal">Tanggal</label>
-              <input type="date" name="tanggal" value="<?= Time::now()->getYear()."-".Time::now()->getMonth()."-".Time::now()->getDay() ?>" class="form-control" id="tanggal">
+              <input required type="date" name="tanggal" value="<?= Time::now()->getYear()."-".Time::now()->getMonth()."-".Time::now()->getDay() ?>" class="form-control" id="tanggal">
           </div>
           <div class="form-group">
               <label for="keterangan">Keterangan</label>
-              <input type="text" name="keterangan" class="form-control" id="keterangan">
+              <input required type="text" name="keterangan" class="form-control" id="keterangan">
           </div>
           <div class="form-group">
               <label for="akun">Akun</label>
@@ -32,11 +32,11 @@ use CodeIgniter\I18n\Time;
           </div>
           <div class="form-group">
               <label for="debit">Debet</label>
-              <input type="number" name="debit" class="form-control" id="debit">
+              <input required type="number" name="debit" class="form-control" id="debit">
           </div>
           <div class="form-group">
               <label for="kredit">Kredit</label>
-              <input type="number" name="kredit" class="form-control" id="kredit">
+              <input required type="number" name="kredit" class="form-control" id="kredit">
             </select>
           </div>
 

@@ -12,15 +12,19 @@
         <div class="modal-body">
           <div class="form-group">
               <label for="tanggal">Tanggal</label>
-              <input type="date" name="start" value="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" max="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" class="form-control" id="start">
+              <input type="date" name="tgl_transaksi" value="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" max="<?= CodeIgniter\I18n\Time::now()->getYear() . "-" . CodeIgniter\I18n\Time::now()->getMonth() ?>" class="form-control" id="start">
           </div>
           <div class="form-group">
               <label for="keterangan">Keterangan</label>
-              <input type="text" name="keterangan" class="form-control" id="keterangan_transaksi">
+              <input type="text" name="keterangan_transaksi" class="form-control" id="keterangan_transaksi">
           </div>
           <div class="form-group">
               <label for="no_akun">No Akun</label>
-              <input type="text" name="no_akun" class="form-control" id="no_akun">
+              <select name="no_akun" id="akun" class="form-control">
+              <?php foreach ($akuns as $akun) {?>
+                  <option value="<?= $akun['no_akun'] ?>"><?= $akun['nama_akun'] ?></option>
+                <?php } ?>
+                </select>
           </div>
           <div class="form-group">
               <label for="debit">Debet</label>
@@ -28,8 +32,7 @@
           </div>
           <div class="form-group">
               <label for="kredit">Kredit</label>
-              <input type="text" name="kredit" class="form-control" id="kredit">
-            </select>
+              <input type="text" name="kredit" class="form-control" id="kredit">    
           </div>
 
         </div>

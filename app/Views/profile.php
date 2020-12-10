@@ -74,19 +74,19 @@
                                 <div class="form-group row">
                                     <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="nip" class="form-control" id="nip" value="<?= $profile["nip"] ?>">
+                                        <input required type="text" name="nip" class="form-control" id="nip" value="<?= $profile["nip"] ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="nama" class="form-control" id="nama" value="<?= $profile["username"] ?>">
+                                        <input required type="text" name="nama" class="form-control" id="nama" value="<?= $profile["username"] ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                                     <div class="col-sm-9">
-                                        <input type="Email" name="email" class="form-control" id="email" value="<?= $profile["email"] ?>">
+                                        <input required type="Email" name="email" class="form-control" id="email" value="<?= $profile["email"] ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -118,13 +118,13 @@
                                 <div class="form-group row">
                                     <label for="password_baru" class="col-sm-4 col-form-label">Password Baru</label>
                                     <div class="col-sm-8">
-                                        <input type="password" name="password_baru" class="form-control" id="password_baru">
+                                        <input required type="password" name="password_baru" class="form-control" id="password_baru">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="konfirmasi_password" class="col-sm-4 col-form-label">Konfirmasi Password</label>
                                     <div class="col-sm-8">
-                                        <input type="password" name="konfirmasi_password" class="form-control" id="konfirmasi_password">
+                                        <input required type="password" name="konfirmasi_password" class="form-control" id="konfirmasi_password">
                                     </div>
                                 </div>
 

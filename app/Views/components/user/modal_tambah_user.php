@@ -12,15 +12,15 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="nip">NIP</label>
-            <input type="text" name="nip" class="form-control" id="nip">
+            <input required type="text" name="nip" class="form-control" id="nip">
           </div>
           <div class="form-group">
             <label for="nama">Nama</label>
-            <input type="text" name="nama" class="form-control" id="nama">
+            <input required type="text" name="nama" class="form-control" id="nama">
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" name="email" class="form-control" id="email">
+            <input required type="text" name="email" class="form-control" id="email">
           </div>
           <div class="form-group">
             <label for="keterangan">Keterangan</label>
@@ -33,7 +33,7 @@
           <div class="form-group">
             <label for="password">Password</label>
             <div class="d-flex">
-              <input type="text" name="password" class="form-control" id="password">
+              <input required type="text" name="password" class="form-control" id="password">
               <button type="button" class="btn btn-secondary ml-1" id="generate-pw">Generate</button>
             </div>
           </div>

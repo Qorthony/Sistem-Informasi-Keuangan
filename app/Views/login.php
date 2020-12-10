@@ -71,13 +71,13 @@
                             <h3 class="pb-3 pt-2">Login</h3>
                             <form id="form-login" action="/login" method="POST">
                                 <div class="form-group">
-                                    <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Username">
+                                    <input required type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Username">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+                                    <input required type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="password">
                                 </div>
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <input required type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Ingat akun</label>
                                 </div>
                                 <button type="submit" class="btn mt-5 mb-4">Login</button>

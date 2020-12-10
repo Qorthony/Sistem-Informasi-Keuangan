@@ -12,15 +12,15 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="no_akun">No Akun</label>
-            <input type="text" name="no akun" class="form-control" id="no_akun">
+            <input required type="text" name="no akun" class="form-control" id="no_akun">
           </div>
           <div class="form-group">
             <label for="nama_akun">Nama Akun</label>
-            <input type="text" name="nama akun" class="form-control" id="nama_akun">
+            <input required type="text" name="nama akun" class="form-control" id="nama_akun">
           </div>
           <div class="form-group">
             <label for="keterangan">Keterangan</label>
-            <input type="text" name="keterangan" class="form-control" id="keterangan">
+            <input required type="text" name="keterangan" class="form-control" id="keterangan">
             </select>
           </div>
 
