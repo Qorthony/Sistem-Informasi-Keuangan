@@ -1,3 +1,12 @@
+.navbar-brand img{
+  width: 40px;
+}
+
+.navbar-brand h3{
+  display: inline;
+  vertical-align: bottom;
+  color: #2E5E99;
+}
 .content-title {
   color: #ffffff;
 }

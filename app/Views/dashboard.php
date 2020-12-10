@@ -5,34 +5,34 @@
 <!-- Menu Sidebar -->
 <?= $this->section('sidebar-menu') ?>
 <li class="menu-item-has-children active">
-    <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+    <a href="/"> <img src="/img/icons/icon-menu-dashboard.png" alt=""> Dashboard</a>
 </li>
 <?php if (session('user_role')=='1') { ?>
 <li class="menu-item-has-children">
-    <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
+    <a href="/user"> <img src="/img/icons/icon-menu-user.png"> Data User</a>
 </li>
 <?php } ?>
 
 <?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
-    <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
+    <a href="/akun"> <img src="/img/icons/icon-menu-akun.png"> Data Akun</a>
 </li>
 <?php } ?>
 
 <?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
-    <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
+    <a href="/jurnal_umum"> <img src="/img/icons/icon-menu-ju.png"> Jurnal Umum</a>
 </li>
 <?php } ?>
 
 <?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
-    <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
+    <a href="/jurnal_penyesuaian"> <img src="/img/icons/icon-menu-jp.png"> Jurnal Penyesuaian</a>
 </li>
 <?php } ?>
 
 <li class="menu-item-has-children">
-    <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
+    <a href="/laporan"> <img src="/img/icons/icon-menu-laporan.png"> Laporan</a>
 </li>
 <?= $this->endSection('sidebar-menu') ?>
 <!-- End Menu Sidebar -->

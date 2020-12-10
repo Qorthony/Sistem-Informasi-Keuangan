@@ -4,34 +4,34 @@
 <!-- Sidebar -->
 <?= $this->section('sidebar-menu') ?>
 <li class="menu-item-has-children">
-    <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+    <a href="/"><img src="/img/icons/icon-menu-dashboard.png" alt="">Dashboard</a>
 </li>
-<?php if (session('user_role')=='1') { ?>
-<li class="menu-item-has-children">
-    <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
-</li>
+<?php if (session('user_role') == '1') { ?>
+    <li class="menu-item-has-children">
+        <a href="/user"> <img src="/img/icons/icon-menu-user.png" alt=""> </i>Data User</a>
+    </li>
 <?php } ?>
 
-<?php if (session('user_role')!='3') { ?>
-<li class="menu-item-has-children active">
-    <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
-</li>
+<?php if (session('user_role') != '3') { ?>
+    <li class="menu-item-has-children active">
+        <a href="/akun"> <img src="/img/icons/icon-menu-akun.png" alt=""> </i>Data Akun</a>
+    </li>
 <?php } ?>
 
-<?php if (session('user_role')!='3') { ?>
-<li class="menu-item-has-children">
-    <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
-</li>
+<?php if (session('user_role') != '3') { ?>
+    <li class="menu-item-has-children">
+        <a href="/jurnal_umum"> <img src="/img/icons/icon-menu-ju.png" alt=""> </i>Jurnal Umum</a>
+    </li>
 <?php } ?>
 
-<?php if (session('user_role')!='3') { ?>
-<li class="menu-item-has-children">
-    <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
-</li>
+<?php if (session('user_role') != '3') { ?>
+    <li class="menu-item-has-children">
+        <a href="/jurnal_penyesuaian"> <img src="/img/icons/icon-menu-jp.png" alt=""> </i>Jurnal Penyesuaian</a>
+    </li>
 <?php } ?>
 
 <li class="menu-item-has-children">
-    <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
+    <a href="/laporan"> <img src="/img/icons/icon-menu-laporan.png" alt=""> </i>Laporan</a>
 </li>
 <?= $this->endSection('sidebar-menu') ?>
 <!-- End Sidebar -->
@@ -54,6 +54,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
+
                 <table class="table table-striped">
                     <div class="row pb-3 pt-2">
                         <div class="col-3">
@@ -77,42 +78,48 @@
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php foreach ($data_akun as $key => $x) : ?>
-                            <tr>
-                                <!-- <th scope="row"><?= $key + 1 ?></th> -->
-                                <td> <?= $x["no_akun"] ?> </td>
-                                <td><?= $x["nama_akun"] ?></td>
-                                <td><?= $x["keterangan"] ?></td>
-                                <td>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#editAkun<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#hapusAkun<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
-                                    <!-- Modal Edit User-->
-                                    <div class="modal fade" id="editAkun<?= $key ?>" tabindex="-1" aria-labelledby="editAkunLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header d-flex">
-                                                    <h5 class="modal-title" id="editAkunLabel">Edit Data</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="/akun/edit/<?= $x["no_akun"] ?>" method="POST">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="no_akun">No Akun</label>
-                                                            <input type="text" name="no_akun" class="form-control" id="no_akun" value="<?= $x["no_akun"] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="nama_akun">Nama Akun</label>
-                                                            <input type="text" name="nama_akun" class="form-control" id="nama_akun" value="<?= $x["nama_akun"] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="keterangan">Keterangan</label>
-                                                            <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan"] ?>">
-                                                            <!-- <select name="keterangan" class="form-control" id="keterangan"> -->
-                                                            <!-- <?php switch ($x["keterangan"]) {
-                                                                        case 1: ?>
+                    <?php if (empty($data_akun)) { ?>
+                        <tr>
+                        <td colspan="4" class="text-center text-secondary">Maaf, Data belum tersedia!</td>
+                        <tr>
+                    <?php } else { ?>
+                        <tbody>
+
+                            <?php foreach ($data_akun as $key => $x) : ?>
+                                <tr>
+                                    <!-- <th scope="row"><?= $key + 1 ?></th> -->
+                                    <td> <?= $x["no_akun"] ?> </td>
+                                    <td><?= $x["nama_akun"] ?></td>
+                                    <td><?= $x["keterangan"] ?></td>
+                                    <td>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#editAkun<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
+                                        <button class="btn btn-light" data-toggle="modal" data-target="#hapusAkun<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
+                                        <!-- Modal Edit User-->
+                                        <div class="modal fade" id="editAkun<?= $key ?>" tabindex="-1" aria-labelledby="editAkunLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header d-flex">
+                                                        <h5 class="modal-title" id="editAkunLabel">Edit Data</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="/akun/edit/<?= $x["no_akun"] ?>" method="POST">
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="no_akun">No Akun</label>
+                                                                <input type="text" name="no_akun" class="form-control" id="no_akun" value="<?= $x["no_akun"] ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="nama_akun">Nama Akun</label>
+                                                                <input type="text" name="nama_akun" class="form-control" id="nama_akun" value="<?= $x["nama_akun"] ?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="keterangan">Keterangan</label>
+                                                                <input type="text" name="keterangan" class="form-control" id="keterangan" value="<?= $x["keterangan"] ?>">
+                                                                <!-- <select name="keterangan" class="form-control" id="keterangan"> -->
+                                                                <!-- <?php switch ($x["keterangan"]) {
+                                                                            case 1: ?>
                                                                         <option value="1" selected>Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan</option>
@@ -125,8 +132,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 2: ?>
+                                                                                break;
+                                                                            case 2: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2" selected>Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -139,8 +146,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 3: ?>
+                                                                                break;
+                                                                            case 3: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3" selected>Perlengkapan Usaha</option>
@@ -153,8 +160,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 4: ?>
+                                                                                break;
+                                                                            case 4: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -167,8 +174,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 5: ?>
+                                                                                break;
+                                                                            case 5: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -181,8 +188,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 6: ?>
+                                                                                break;
+                                                                            case 6: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -195,8 +202,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 7: ?>
+                                                                                break;
+                                                                            case 7: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -209,8 +216,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 8: ?>
+                                                                                break;
+                                                                            case 8: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -223,8 +230,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 9: ?>
+                                                                                break;
+                                                                            case 9: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -237,8 +244,8 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 10: ?>
+                                                                                break;
+                                                                            case 10: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -251,8 +258,8 @@
                                                                         <option value="10" selected>Beban Perlengkapan</option>
                                                                         <option value="11">Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
-                                                                        case 11: ?>
+                                                                                break;
+                                                                            case 11: ?>
                                                                         <option value="1">Kas</option>
                                                                         <option value="2">Piutang Usaha</option>
                                                                         <option value="3">Perlengkapan Usaha</option>
@@ -265,51 +272,52 @@
                                                                         <option value="10">Beban Perlengkapan</option>
                                                                         <option value="11" selected>Beban Penyusutan Peralatan</option>
                                                                     <?php
-                                                                            break;
+                                                                                break;
 
-                                                                        default:
-                                                                            # code...
-                                                                            break;
-                                                                    } ?> -->
+                                                                            default:
+                                                                                # code...
+                                                                                break;
+                                                                        } ?> -->
 
-                                                            </select>
+                                                                </select>
+                                                            </div>
+
                                                         </div>
-
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-success">Ubah</button>
+                                                            <button type="button" class="btn btn-light" data-dismiss="modal">Keluar</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- End Modal Edit User -->
+                                        <!-- Modal Hapus User -->
+                                        <div class="modal fade" id="hapusAkun<?= $key ?>" tabindex="-1" aria-labelledby="hapusAkunLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header d-flex" style="background-color: rgba(46,94,153,0.65);">
+                                                        <h5 class="modal-title" id="hapusAkunLabel">Konfirmasi</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p class="text-body">Apakah anda yakin menghapus data ini?</p>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success">Ubah</button>
-                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Keluar</button>
+                                                        <a href="/akun/del/<?= $x["no_akun"] ?>" class="btn btn-danger">Hapus</a>
+                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal Edit User -->
-                                    <!-- Modal Hapus User -->
-                                    <div class="modal fade" id="hapusAkun<?= $key ?>" tabindex="-1" aria-labelledby="hapusAkunLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header d-flex" style="background-color: rgba(46,94,153,0.65);">
-                                                    <h5 class="modal-title" id="hapusAkunLabel">Konfirmasi</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p class="text-body">Apakah anda yakin menghapus data ini?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="/akun/del/<?= $x["no_akun"] ?>" class="btn btn-danger">Hapus</a>
-                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!-- End Modal hapus user -->
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
+                                        <!-- End Modal hapus user -->
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    <?php } ?>
                 </table>
             </div>
         </div>

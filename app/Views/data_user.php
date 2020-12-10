@@ -4,34 +4,34 @@
 <!-- Sidebar -->
 <?= $this->section('sidebar-menu') ?>
 <li class="menu-item-has-children">
-    <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
+    <a href="/"><img src="/img/icons/icon-menu-dashboard.png" alt="">Dashboard</a>
 </li>
 <?php if (session('user_role')=='1') { ?>
 <li class="menu-item-has-children active">
-    <a href="/user"> <i class="menu-icon fa fa-cogs"></i>Data User</a>
+    <a href="/user"> <img src="/img/icons/icon-menu-user.png" alt="">Data User</a>
 </li>
 <?php } ?>
 
 <?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
-    <a href="/akun"> <i class="menu-icon fa fa-cogs"></i>Data Akun</a>
+    <a href="/akun"> <img src="/img/icons/icon-menu-akun.png" alt="">Data Akun</a>
 </li>
 <?php } ?>
 
 <?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
-    <a href="/jurnal_umum"> <i class="menu-icon fa fa-cogs"></i>Jurnal Umum</a>
+    <a href="/jurnal_umum"> <img src="/img/icons/icon-menu-ju.png" alt="">Jurnal Umum</a>
 </li>
 <?php } ?>
 
 <?php if (session('user_role')!='3') { ?>
 <li class="menu-item-has-children">
-    <a href="/jurnal_penyesuaian"> <i class="menu-icon fa fa-cogs"></i>Jurnal Penyesuaian</a>
+    <a href="/jurnal_penyesuaian"> <img src="/img/icons/icon-menu-jp.png" alt="">Jurnal Penyesuaian</a>
 </li>
 <?php } ?>
 
 <li class="menu-item-has-children">
-    <a href="/laporan"> <i class="menu-icon fa fa-cogs"></i>Laporan</a>
+    <a href="/laporan"> <img src="/img/icons/icon-menu-laporan.png" alt="">Laporan</a>
 </li>
 <?= $this->endSection('sidebar-menu') ?>
 <!-- End Sidebar -->
@@ -79,6 +79,11 @@
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
+                    <?php if (empty($data_users)) { ?>
+                        <tr>
+                            <td colspan="6" class="text-center text-secondary">Maaf, Data belum tersedia!</td>
+                        <tr>
+                        <?php } else { ?>
                     <tbody>
                         <?php foreach ($data_users as $key => $x) : ?>
                             <tr>
@@ -184,6 +189,7 @@
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
+                    <?php } ?>
                 </table>
             </div>
         </div>
