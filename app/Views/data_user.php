@@ -6,28 +6,28 @@
 <li class="menu-item-has-children">
     <a href="/"><img src="/img/icons/icon-menu-dashboard.png" alt="">Dashboard</a>
 </li>
-<?php if (session('user_role')=='1') { ?>
-<li class="menu-item-has-children active">
-    <a href="/user"> <img src="/img/icons/icon-menu-user.png" alt="">Data User</a>
-</li>
+<?php if (session('user_role') == '1') { ?>
+    <li class="menu-item-has-children active">
+        <a href="/user"> <img src="/img/icons/icon-menu-user.png" alt="">Data User</a>
+    </li>
 <?php } ?>
 
-<?php if (session('user_role')!='3') { ?>
-<li class="menu-item-has-children">
-    <a href="/akun"> <img src="/img/icons/icon-menu-akun.png" alt="">Data Akun</a>
-</li>
+<?php if (session('user_role') != '3') { ?>
+    <li class="menu-item-has-children">
+        <a href="/akun"> <img src="/img/icons/icon-menu-akun.png" alt="">Data Akun</a>
+    </li>
 <?php } ?>
 
-<?php if (session('user_role')!='3') { ?>
-<li class="menu-item-has-children">
-    <a href="/jurnal_umum"> <img src="/img/icons/icon-menu-ju.png" alt="">Jurnal Umum</a>
-</li>
+<?php if (session('user_role') != '3') { ?>
+    <li class="menu-item-has-children">
+        <a href="/jurnal_umum"> <img src="/img/icons/icon-menu-ju.png" alt="">Jurnal Umum</a>
+    </li>
 <?php } ?>
 
-<?php if (session('user_role')!='3') { ?>
-<li class="menu-item-has-children">
-    <a href="/jurnal_penyesuaian"> <img src="/img/icons/icon-menu-jp.png" alt="">Jurnal Penyesuaian</a>
-</li>
+<?php if (session('user_role') != '3') { ?>
+    <li class="menu-item-has-children">
+        <a href="/jurnal_penyesuaian"> <img src="/img/icons/icon-menu-jp.png" alt="">Jurnal Penyesuaian</a>
+    </li>
 <?php } ?>
 
 <li class="menu-item-has-children">
@@ -84,112 +84,115 @@
                             <td colspan="6" class="text-center text-secondary">Maaf, Data belum tersedia!</td>
                         <tr>
                         <?php } else { ?>
-                    <tbody>
-                        <?php foreach ($data_users as $key => $x) : ?>
-                            <tr>
-                                <th scope="row"><?= $key + 1 ?></th>
-                                <td> <?= $x["nip"] ?> </td>
-                                <td><?= $x["username"] ?></td>
-                                <td><?= $x["email"] ?></td>
-                                <td><?= $x["jenis_user"] ?></td>
-                                <td>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#editUser<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
-                                    <button class="btn btn-light" data-toggle="modal" data-target="#hapusUser<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
-                                    <!-- Modal Edit User-->
-                                    <div class="modal fade" id="editUser<?= $key ?>" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header d-flex">
-                                                    <h5 class="modal-title" id="editUserLabel">Edit Data</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="/user/edit/<?= $x["nip"] ?>" method="POST">
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label for="nip">NIP</label>
-                                                            <input required type="text" name="nip" class="form-control" id="nip" value="<?= $x["nip"] ?>">
+                            <tbody>
+                                <?php foreach ($data_users as $key => $x) : ?>
+                                    <tr>
+                                        <th scope="row"><?= $key + 1 ?></th>
+                                        <td> <?= $x["nip"] ?> </td>
+                                        <td><?= $x["username"] ?></td>
+                                        <td><?= $x["email"] ?></td>
+                                        <td><?= $x["jenis_user"] ?></td>
+                                        <td>
+                                            <button class="btn btn-light" data-toggle="modal" data-target="#editUser<?= $key ?>"><i data-feather="edit-2" stroke-width="2"></i></button>
+                                            <button class="btn btn-light" data-toggle="modal" data-target="#hapusUser<?= $key ?>"><i data-feather="trash-2" stroke-width="2"></i></button>
+                                            <!-- Modal Edit User-->
+                                            <div class="modal fade" id="editUser<?= $key ?>" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header d-flex">
+                                                            <h5 class="modal-title" id="editUserLabel">Edit Data</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="nama">Nama</label>
-                                                            <input required type="text" name="nama" class="form-control" id="nama" value="<?= $x["username"] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="email">Email</label>
-                                                            <input required type="text" name="email" class="form-control" id="email" value="<?= $x["email"] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="keterangan">Keterangan</label>
-                                                            <select name="keterangan" class="form-control" id="keterangan">
-                                                                <?php switch ($x["jenis_user"]) {
-                                                                    case 1: ?>
-                                                                        <option value="1" selected>Admin</option>
-                                                                        <option value="2">Accounting</option>
-                                                                        <option value="3">Board</option>
-                                                                    <?php
-                                                                        break;
-                                                                    case 2: ?>
-                                                                        <option value="1">Admin</option>
-                                                                        <option value="2" selected>Accounting</option>
-                                                                        <option value="3">Board</option>
-                                                                    <?php
-                                                                        break;
-                                                                    case 3: ?>
-                                                                        <option value="1">Admin</option>
-                                                                        <option value="2">Accounting</option>
-                                                                        <option value="3" selected>Board</option>
-                                                                <?php
-                                                                        break;
+                                                        <form action="/user/edit/<?= $x["nip"] ?>" method="POST">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="nip">NIP</label>
+                                                                    <input required type="text" name="nip" class="form-control" id="nip" value="<?= $x["nip"] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="nama">Nama</label>
+                                                                    <input required type="text" name="nama" class="form-control" id="nama" value="<?= $x["username"] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="email">Email</label>
+                                                                    <input required type="text" name="email" class="form-control" id="email" value="<?= $x["email"] ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="keterangan">Keterangan</label>
+                                                                    <select name="keterangan" class="form-control" id="keterangan">
+                                                                        <?php switch ($x["jenis_user"]) {
+                                                                            case 1: ?>
+                                                                                <option value="1" selected>Admin</option>
+                                                                                <option value="2">Accounting</option>
+                                                                                <option value="3">Board</option>
+                                                                            <?php
+                                                                                break;
+                                                                            case 2: ?>
+                                                                                <option value="1">Admin</option>
+                                                                                <option value="2" selected>Accounting</option>
+                                                                                <option value="3">Board</option>
+                                                                            <?php
+                                                                                break;
+                                                                            case 3: ?>
+                                                                                <option value="1">Admin</option>
+                                                                                <option value="2">Accounting</option>
+                                                                                <option value="3" selected>Board</option>
+                                                                        <?php
+                                                                                break;
 
-                                                                    default:
-                                                                        # code...
-                                                                        break;
-                                                                } ?>
+                                                                            default:
+                                                                                # code...
+                                                                                break;
+                                                                        } ?>
 
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="password">Password</label>
-                                                            <input required type="text" name="nama" class="form-control" id="password" value="<?= $x["username"] ?>">
-                                                        </div>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="password">Password</label>
+                                                                    <div class="d-flex">
+                                                                        <input required type="text" name="password" class="form-control pw" id="password">
+                                                                        <button type="button" class="btn btn-secondary ml-1 generate-pw" id="generate-pw">Generate</button>
+                                                                    </div>
+                                                                </div>
 
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-success">Ubah</button>
+                                                                <button type="button" class="btn btn-light" data-dismiss="modal">Keluar</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success">Ubah</button>
-                                                        <button type="button" class="btn btn-light" data-dismiss="modal">Keluar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal Edit User -->
-                                    <!-- Modal Hapus User -->
-                                    <div class="modal fade" id="hapusUser<?= $key ?>" tabindex="-1" aria-labelledby="hapusUserLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header d-flex" style="background-color: rgba(46,94,153,0.65);">
-                                                    <h5 class="modal-title" id="hapusUserLabel">Konfirmasi</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p class="text-body">Apakah anda yakin menghapus data ini?</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="/user/del/<?= $x["nip"] ?>" class="btn btn-danger">Hapus</a>
-                                                    <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal hapus user -->
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                    <?php } ?>
+                                            <!-- End Modal Edit User -->
+                                            <!-- Modal Hapus User -->
+                                            <div class="modal fade" id="hapusUser<?= $key ?>" tabindex="-1" aria-labelledby="hapusUserLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header d-flex" style="background-color: rgba(46,94,153,0.65);">
+                                                            <h5 class="modal-title" id="hapusUserLabel">Konfirmasi</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p class="text-body">Apakah anda yakin menghapus data ini?</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a href="/user/del/<?= $x["nip"] ?>" class="btn btn-danger">Hapus</a>
+                                                            <button type="button" class="btn btn-light" data-dismiss="modal">Tidak</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Modal hapus user -->
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        <?php } ?>
                 </table>
             </div>
         </div>
@@ -198,6 +201,26 @@
 <?= $this->endSection('content') ?>
 
 <?= $this->section('script') ?>
+<script>
+  const btnEditGenerate = document.getElementsByClassName("generate-pw")[0];
+  const input = document.getElementsByClassName("pw")[0];
+  btnEditGenerate.addEventListener("click", () => {
+    let pw = generateId(8);
+    input.value = pw;
+    console.log("selesai!");
+  })
+
+  function dec2hex(dec) {
+    return dec.toString(16).padStart(2, "0")
+  }
+
+  // generateId :: Integer -> String
+  function generateId(len) {
+    var arr = new Uint8Array((len || 40) / 2)
+    window.crypto.getRandomValues(arr)
+    return Array.from(arr, dec2hex).join('')
+  }
+</script>
 <?php if (session('errors')) { ?>
     <script>
         jQuery('#alertError').modal('show')

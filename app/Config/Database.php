@@ -5,6 +5,12 @@
  *
  * @package Config
  */
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$host = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$database = substr($url["path"], 1);
 
 class Database extends \CodeIgniter\Database\Config
 {
@@ -31,10 +37,10 @@ class Database extends \CodeIgniter\Database\Config
 	 */
 	public $default = [
 		'DSN'      => '',
-		'hostname' => 'localhost',
-		'username' => '',
-		'password' => '',
-		'database' => '',
+		'hostname' => 'us-cdbr-east-02.cleardb.com',
+		'username' => 'b3a37df53a7d5c',
+		'password' => 'b81638d3',
+		'database' => 'heroku_6dcb5aab1d95646?reconnect=true',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,
