@@ -80,6 +80,7 @@
     </div>
 </div>
 
+<?php if(!empty($data)){ ?>
 <script>
     const akunSelector = document.getElementById("akun");
     let opsi_akun = [
@@ -120,3 +121,4 @@
         })
     }
 </script>
+<?php }?>

@@ -77,8 +77,8 @@
                                     <input required type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="password">
                                 </div>
                                 <div class="form-group form-check">
-                                    <input required type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Ingat akun</label>
+                                    <input type="checkbox" class="form-check-input" id="ingat">
+                                    <label class="form-check-label" for="ingat">Ingat akun</label>
                                 </div>
                                 <button type="submit" class="btn mt-5 mb-4">Login</button>
                             </form>

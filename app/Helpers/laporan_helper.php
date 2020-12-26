@@ -14,7 +14,7 @@ function getDataJurnal($mulai, $selesai, $bahasa = "id")
         'tgl_selesai' => date('Y-m-t', strtotime($selesai))
     ])->getResult('array');
 
-    if ($bahasa=='en') {
+    if ($bahasa=='en' && !empty($result)) {
         $text = getTeks($result, ['nama_akun', 'keterangan_transaksi']);
         $translated = translateToEnglish($text);
         // dd($translated, $text);

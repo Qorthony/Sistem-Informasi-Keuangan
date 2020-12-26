@@ -51,6 +51,8 @@ class Laporan extends BaseController
 				# code...
 				break;
 		}
+
+
 		return view('laporan', [
 			'filter' => $filter,
 			'data'	=> $data
